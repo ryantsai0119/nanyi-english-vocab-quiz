@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南一版 國中二上 英文單字測驗</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brick: #c88242;
+            --mortar: #3a2416;
+            --accent-red: #e11d2e;
+            --ink: #1f140e;
+            --paper: #fff8f1;
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--ink);
+            background-color: var(--brick);
+            background-image:
+                linear-gradient(rgba(30, 16, 8, 0.18), rgba(30, 16, 8, 0.28)),
+                repeating-linear-gradient(0deg, #b56f35 0px, #b56f35 22px, var(--mortar) 22px, var(--mortar) 26px),
+                repeating-linear-gradient(90deg, #c88242 0px, #c88242 54px, var(--mortar) 54px, var(--mortar) 58px);
+            background-blend-mode: multiply, normal, normal;
+            min-height: 100vh;
+        }
+        .title-hero {
+            font-family: 'Bebas Neue', 'Oswald', sans-serif;
+            letter-spacing: 0.04em;
+            line-height: 1.05;
+            background: linear-gradient(180deg, #ffd27a 0%, #ff8a1f 45%, #e11d2e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 1.2px #fff;
+            paint-order: stroke fill;
+            filter: drop-shadow(0 2px 0 rgba(255,255,255,0.9));
+        }
+        .card {
+            position: relative;
+            background-color: var(--paper);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            border: 3px solid #fff;
+            box-shadow: 0 18px 30px rgba(40, 18, 8, 0.35), inset 0 0 0 2px rgba(225, 29, 46, 0.15);
+        }
+        @media (min-width: 640px) { .card { padding: 2.25rem; } }
+        .btn {
+            display: inline-block;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            border-radius: 0.85rem;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+        }
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
+            border-color: #fff;
+            box-shadow: 0 4px 0 #7f0b14;
+        }
+        .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
+        .btn-primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #7f0b14; }
+        .btn-secondary {
+            color: #c8101e;
+            background-color: #ffe8d6;
+            border-color: #f4b183;
+        }
+        .btn-secondary:hover { background-color: #ffd7b8; }
+        .btn-mini {
+            padding: 0.35rem 0.7rem;
+            font-size: 0.8rem;
+            border-radius: 0.55rem;
+            font-weight: 700;
+            border: 1px solid #f4b183;
+            background: #fff;
+            color: #c8101e;
+            cursor: pointer;
+        }
+        .btn-mini:hover { background: #ffe8d6; }
+        .btn-speak {
+            width: 2rem; height: 2rem; border-radius: 9999px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: #ffe4ea; color: #c8101e; border: none; cursor: pointer;
+            flex-shrink: 0;
+        }
+        .btn-speak:hover { background: #ffc9d4; }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e7c4a4;
+            background: #fff;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #e11d2e;
+            box-shadow: 0 0 0 3px rgba(225, 29, 46, 0.2);
+        }
+        .hidden { display: none !important; }
+        #answer-display-container { min-height: 50px; }
+        #answer-display-text { letter-spacing: 2px; }
+        #cursor { color: #e11d2e; font-weight: 200; }
+        .keyboard-row { display: flex; width: 100%; justify-content: center; gap: 4px; margin-bottom: 6px; }
+        .keyboard-key {
+            background-color: #fff7ef; border: 1px solid #e7c4a4; border-radius: 6px; padding: 14px 0;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer; height: 48px; display: flex; align-items: center;
+            justify-content: center; box-shadow: 0 2px 2px -1px rgba(0,0,0,0.05);
+            flex: 1; min-width: 0;
+        }
+        .keyboard-key:active { background-color: #e11d2e; color: white; transform: translateY(1px); }
+        .special-key { background-color: #f0d5bc; }
+        .flex-2 { flex: 2; }
+        .flex-4 { flex: 4; }
+        #speak-btn {
+            background-color: #ffe4ea; color: #c8101e; border-radius: 9999px; width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
+        }
+        #speak-btn:hover { background-color: #ffc9d4; }
+        .checkbox-label {
+            display: flex; align-items: center; padding: 0.75rem; background-color: #fff;
+            border-radius: 0.75rem; border: 1px solid #e7c4a4; cursor: pointer;
+        }
+        .checkbox-label:hover { border-color: #e11d2e; }
+        .checkbox-label input:checked ~ .checkbox-icon { background-color: #e11d2e; border-color: #e11d2e; }
+        .checkbox-label input:checked ~ .checkbox-icon svg { display: block; }
+        .checkbox-icon {
+            width: 1.5rem; height: 1.5rem; border-radius: 0.5rem; border: 2px solid #d1d5db;
+            display: flex; align-items: center; justify-content: center; margin-right: 0.75rem; flex-shrink: 0;
+        }
+        .badge {
+            display: inline-flex; align-items: center;
+            background: #ffe4ea; color: #c8101e; font-weight: 700;
+            border-radius: 9999px; padding: 0.35rem 0.9rem;
+        }
+        .score-panel {
+            background: linear-gradient(180deg, #fff0e6 0%, #ffe4ea 100%);
+            border: 2px solid #fff; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem;
+        }
+        .link-accent { color: #c8101e; }
+        .link-accent:hover { text-decoration: underline; }
+        .panel { background: #fff7ef; border-radius: 0.85rem; padding: 1.25rem; border: 1px solid #e7c4a4; }
+        .vocab-row {
+            display: grid;
+            grid-template-columns: 1.6rem 1fr auto auto;
+            gap: 0.5rem;
+            align-items: center;
+            padding: 0.65rem 0.5rem;
+            border-bottom: 1px solid #f0d5bc;
+        }
+        .vocab-row.memorized { background: #f3fce9; }
+        .vocab-en { font-weight: 700; color: #1f140e; }
+        .vocab-zh { font-size: 0.9rem; color: #5a4638; }
+        .vocab-ph { font-size: 0.75rem; color: #8a6b55; }
+        .modal-backdrop {
+            position: fixed; inset: 0; background: rgba(20,10,5,0.55);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem; z-index: 50;
+        }
+        .modal-card {
+            width: 100%; max-width: 26rem; background: var(--paper);
+            border-radius: 1rem; border: 3px solid #fff; padding: 1.25rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        }
+        .result-ok { color: #15803d; font-weight: 800; }
+        .result-bad { color: #b91c1c; font-weight: 800; }
+        .tab-btn {
+            flex: 1; padding: 0.65rem; font-weight: 700; border-radius: 0.7rem;
+            border: 2px solid #e7c4a4; background: #fff; color: #5a4638; cursor: pointer;
+        }
+        .tab-btn.active {
+            background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
+            color: #fff; border-color: #fff;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6">
+
+    <div id="app" class="max-w-md w-full mx-auto">
+
+        <!-- 設定畫面 -->
+        <div id="settings-screen" class="card text-center">
+            <h1 class="title-hero text-4xl sm:text-5xl mb-2">南一版 國中二上<br>英文單字測驗</h1>
+            <p class="text-stone-600 mb-1 text-sm">115 學年度｜八上第三冊 Lesson 1–6</p>
+            <p class="text-stone-500 text-xs mb-5">先背單字表，再開始測驗！</p>
+
+            <div class="flex gap-2 mb-5">
+                <button type="button" id="tab-quiz" class="tab-btn active" onclick="showHomeTab('quiz')">開始測驗</button>
+                <button type="button" id="tab-vocab" class="tab-btn" onclick="showHomeTab('vocab')">各課單字表</button>
+            </div>
+
+            <div id="home-quiz" class="space-y-6 text-left">
+                <div>
+                    <label for="question-count" class="block text-base font-bold text-stone-800 mb-2 text-center">選擇題目數量</label>
+                    <select id="question-count" class="input-field text-center">
+                        <option value="10">10 題</option>
+                        <option value="20">20 題</option>
+                        <option value="30">30 題</option>
+                        <option value="all">全部</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-bold text-stone-800">選擇出題範圍</h2>
+                        <div class="space-x-2 text-sm">
+                            <button type="button" onclick="selectAllLessons(true)" class="link-accent">全選</button>
+                            <button type="button" onclick="selectAllLessons(false)" class="link-accent">全不選</button>
+                        </div>
+                    </div>
+                    <div id="lesson-selection-container" class="space-y-2"></div>
+                    <p id="lesson-error" class="text-red-600 text-sm mt-2 text-center hidden">請至少選擇一個單元！</p>
+                </div>
+                <div>
+                    <h2 class="text-base font-bold text-stone-800 mb-3 text-center">選擇測驗模式</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="startGame('zh-en')" class="btn btn-primary">中翻英</button>
+                        <button onclick="startGame('en-zh')" class="btn btn-primary">英翻中</button>
+                        <button onclick="startGame('fill-in')" class="btn btn-primary">克漏字</button>
+                        <button onclick="startGame('listening')" class="btn btn-primary">聽力測驗</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="home-vocab" class="hidden text-left">
+                <label class="block text-sm font-bold text-stone-700 mb-2">選擇課次</label>
+                <select id="vocab-lesson-select" class="input-field mb-3" onchange="renderVocabList()"></select>
+                <div class="flex justify-between items-center mb-2 text-xs text-stone-500">
+                    <span id="vocab-progress">已背 0 / 0</span>
+                    <button type="button" class="btn-mini" onclick="clearLessonMemorized()">清除本課打勾</button>
+                </div>
+                <div id="vocab-list" class="bg-white rounded-xl border border-[#e7c4a4] max-h-[55vh] overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <!-- 測驗畫面 -->
+        <div id="quiz-screen" class="card hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="quiz-title" class="text-2xl font-black text-stone-900">測驗進行中</h2>
+                <div class="badge">
+                    <span id="current-question-number">1</span> / <span id="total-question-number">10</span>
+                </div>
+            </div>
+            <div class="panel mb-6 text-center">
+                <p class="text-stone-600 mb-2" id="question-prompt">題目提示</p>
+                <div id="question-display-area" class="flex items-center justify-center gap-x-3 min-h-[48px]">
+                    <h3 class="text-2xl sm:text-3xl font-black text-stone-900 break-words" id="question-text">題目</h3>
+                    <button id="speak-btn" class="hidden" type="button" aria-label="播放發音">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div id="answer-display-container" class="input-field text-xl bg-white flex items-center justify-center">
+                    <span id="answer-display-text" class="font-semibold"></span>
+                    <span id="cursor" class="animate-pulse">|</span>
+                </div>
+                <input type="text" id="answer-input" class="input-field text-center text-xl hidden" placeholder="在這裡輸入答案..." autocomplete="off">
+                <button id="submit-answer-btn" onclick="submitAnswer()" class="btn btn-primary w-full">下一題</button>
+            </div>
+            <div id="custom-keyboard" class="mt-6 hidden"></div>
+            <button type="button" onclick="restartQuiz()" class="btn btn-secondary w-full mt-4">回首頁</button>
+        </div>
+
+        <!-- 結果畫面 -->
+        <div id="results-screen" class="card hidden text-center">
+            <h1 class="title-hero text-4xl mb-2">測驗結束</h1>
+            <p class="text-stone-600 mb-6">看看你這次表現如何</p>
+            <div class="score-panel">
+                <p class="text-lg text-red-800 font-bold">你的分數</p>
+                <h2 id="score" class="text-7xl font-black text-red-600 my-2">100</h2>
+                <p id="score-details" class="text-stone-600">答對 10 題中的 10 題</p>
+            </div>
+            <div id="review-section" class="space-y-4 text-left"></div>
+            <button onclick="restartQuiz()" class="btn btn-secondary w-full mt-8">重新測驗</button>
+        </div>
+    </div>
+
+    <!-- 小測驗彈窗 -->
+    <div id="mini-quiz-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <h3 class="text-lg font-black text-stone-900 mb-1">小測驗 · 中翻英</h3>
+            <p class="text-xs text-stone-500 mb-4" id="mini-quiz-lesson"></p>
+            <p class="text-stone-600 text-sm mb-1">中文</p>
+            <p id="mini-quiz-zh" class="text-2xl font-black text-stone-900 mb-4">—</p>
+            <label class="text-stone-600 text-sm mb-1 block" for="mini-quiz-input">請輸入英文</label>
+            <input id="mini-quiz-input" class="input-field text-center text-lg mb-3" autocomplete="off" placeholder="English word">
+            <p id="mini-quiz-result" class="min-h-[1.5rem] mb-3 text-center"></p>
+            <div class="flex gap-2">
+                <button type="button" class="btn btn-primary flex-1" onclick="checkMiniQuiz()">確定</button>
+                <button type="button" class="btn btn-secondary flex-1" onclick="closeMiniQuiz()">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="vocab-data.js"></script>
+    <script>
+        let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
+        let voices = [];
+        let miniQuizWord = null;
+        let miniQuizChecked = false;
+        const MEM_KEY = 'nanyi_b3_memorized_v1';
+
+        const settingsScreen = document.getElementById('settings-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const answerInput = document.getElementById('answer-input');
+        const answerDisplayContainer = document.getElementById('answer-display-container');
+        const answerDisplayText = document.getElementById('answer-display-text');
+        const customKeyboard = document.getElementById('custom-keyboard');
+        const lessonSelectionContainer = document.getElementById('lesson-selection-container');
+        const speakBtn = document.getElementById('speak-btn');
+        const miniModal = document.getElementById('mini-quiz-modal');
+        const miniInput = document.getElementById('mini-quiz-input');
+
+        const quizTitles = {
+            'zh-en': '中翻英',
+            'en-zh': '英翻中',
+            'fill-in': '克漏字',
+            'listening': '聽力測驗'
+        };
+
+        function loadMemorized() {
+            try { return JSON.parse(localStorage.getItem(MEM_KEY) || '{}'); }
+            catch (e) { return {}; }
+        }
+        function saveMemorized(data) {
+            localStorage.setItem(MEM_KEY, JSON.stringify(data));
+        }
+        function memKey(lesson, en) { return lesson + '::' + en.toLowerCase(); }
+
+        function showHomeTab(tab) {
+            const quiz = document.getElementById('home-quiz');
+            const vocab = document.getElementById('home-vocab');
+            document.getElementById('tab-quiz').classList.toggle('active', tab === 'quiz');
+            document.getElementById('tab-vocab').classList.toggle('active', tab === 'vocab');
+            quiz.classList.toggle('hidden', tab !== 'quiz');
+            vocab.classList.toggle('hidden', tab !== 'vocab');
+            if (tab === 'vocab') renderVocabList();
+        }
+
+        function populateLessonCheckboxes() {
+            lessonSelectionContainer.innerHTML = '';
+            sortedLessons().forEach(lessonName => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `
+                    <input type="checkbox" value="${lessonName}" class="sr-only" checked>
+                    <div class="checkbox-icon">
+                        <svg class="w-4 h-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <span class="font-medium text-stone-800">${lessonName}（${wordBank[lessonName].length} 字）</span>
+                `;
+                lessonSelectionContainer.appendChild(label);
+            });
+        }
+
+        function sortedLessons() {
+            return Object.keys(wordBank).sort((a, b) => parseInt(a.replace(/\D/g, ''), 10) - parseInt(b.replace(/\D/g, ''), 10));
+        }
+
+        function populateVocabLessonSelect() {
+            const sel = document.getElementById('vocab-lesson-select');
+            sel.innerHTML = sortedLessons().map(l => `<option value="${l}">${l}（${wordBank[l].length} 字）</option>`).join('');
+        }
+
+        function renderVocabList() {
+            const lesson = document.getElementById('vocab-lesson-select').value || sortedLessons()[0];
+            const list = document.getElementById('vocab-list');
+            const mem = loadMemorized();
+            const words = wordBank[lesson] || [];
+            let done = 0;
+            list.innerHTML = words.map((w, idx) => {
+                const key = memKey(lesson, w.en);
+                const checked = !!mem[key];
+                if (checked) done++;
+                const phonetic = w.phonetic || '';
+                return `
+                    <div class="vocab-row ${checked ? 'memorized' : ''}" data-idx="${idx}">
+                        <input type="checkbox" ${checked ? 'checked' : ''} aria-label="已背起來"
+                            onchange="toggleMemorized('${lesson.replace(/'/g, "\\'")}', '${w.en.replace(/'/g, "\\'")}', this.checked)">
+                        <div>
+                            <div class="vocab-en">${escapeHtml(w.en)}</div>
+                            <div class="vocab-zh">${escapeHtml(w.zh)}</div>
+                            ${phonetic ? `<div class="vocab-ph">${escapeHtml(phonetic)}</div>` : ''}
+                        </div>
+                        <button type="button" class="btn-speak" title="英文發音" onclick="speak('${w.en.replace(/'/g, "\\'")}')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </button>
+                        <button type="button" class="btn-mini" onclick="openMiniQuiz('${lesson.replace(/'/g, "\\'")}', ${idx})">小測驗</button>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('vocab-progress').textContent = `已背 ${done} / ${words.length}`;
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        function toggleMemorized(lesson, en, checked) {
+            const mem = loadMemorized();
+            const key = memKey(lesson, en);
+            if (checked) mem[key] = true; else delete mem[key];
+            saveMemorized(mem);
+            renderVocabList();
+        }
+
+        function clearLessonMemorized() {
+            const lesson = document.getElementById('vocab-lesson-select').value;
+            const mem = loadMemorized();
+            Object.keys(mem).forEach(k => { if (k.startsWith(lesson + '::')) delete mem[k]; });
+            saveMemorized(mem);
+            renderVocabList();
+        }
+
+        function openMiniQuiz(lesson, idx) {
+            miniQuizWord = { lesson, word: wordBank[lesson][idx] };
+            miniQuizChecked = false;
+            document.getElementById('mini-quiz-lesson').textContent = lesson;
+            document.getElementById('mini-quiz-zh').textContent = miniQuizWord.word.zh;
+            document.getElementById('mini-quiz-result').textContent = '';
+            document.getElementById('mini-quiz-result').className = 'min-h-[1.5rem] mb-3 text-center';
+            miniInput.value = '';
+            miniInput.disabled = false;
+            miniModal.classList.remove('hidden');
+            setTimeout(() => miniInput.focus(), 50);
+        }
+
+        function closeMiniQuiz() {
+            miniModal.classList.add('hidden');
+            miniQuizWord = null;
+        }
+
+        function checkMiniQuiz() {
+            if (!miniQuizWord) return;
+            const user = normalizeText(miniInput.value);
+            const correct = normalizeText(miniQuizWord.word.en);
+            const ok = user === correct;
+            const el = document.getElementById('mini-quiz-result');
+            if (!user) {
+                el.textContent = '請先輸入英文';
+                el.className = 'min-h-[1.5rem] mb-3 text-center result-bad';
+                return;
+            }
+            miniQuizChecked = true;
+            if (ok) {
+                el.innerHTML = '正確 ✓';
+                el.className = 'min-h-[1.5rem] mb-3 text-center result-ok';
+                // auto mark memorized on correct
+                const mem = loadMemorized();
+                mem[memKey(miniQuizWord.lesson, miniQuizWord.word.en)] = true;
+                saveMemorized(mem);
+                if (!document.getElementById('home-vocab').classList.contains('hidden')) renderVocabList();
+            } else {
+                el.innerHTML = `錯誤 ✗　正確答案：<span class="font-bold">${escapeHtml(miniQuizWord.word.en)}</span>`;
+                el.className = 'min-h-[1.5rem] mb-3 text-center result-bad';
+            }
+        }
+
+        function selectAllLessons(checked) {
+            lessonSelectionContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = checked; });
+        }
+
+        function populateVoiceList() {
+            voices = window.speechSynthesis.getVoices();
+        }
+
+        function speak(text) {
+            if (!window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            const englishVoice = voices.find(voice => voice.lang.startsWith('en-')) || voices[0];
+            if (englishVoice) utterance.voice = englishVoice;
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function normalizeText(text) {
+            return (text || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function normalizeZh(text) {
+            return (text || '').trim().replace(/\s+/g, '').toLowerCase();
+        }
+
+        function isChineseAnswerCorrect(userAnswer, correctAnswer) {
+            const u = normalizeZh(userAnswer);
+            const c = normalizeZh(correctAnswer);
+            if (!u) return false;
+            if (u === c) return true;
+            return c.includes(u) || u.includes(c);
+        }
+
+        function createKeyboard() {
+            const rows = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m']];
+            customKeyboard.innerHTML = '';
+            rows.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'keyboard-row';
+                row.forEach(key => {
+                    const keyBtn = document.createElement('button');
+                    keyBtn.type = 'button';
+                    keyBtn.className = 'keyboard-key';
+                    keyBtn.textContent = key;
+                    keyBtn.onclick = () => handleKeyPress(key);
+                    rowDiv.appendChild(keyBtn);
+                });
+                customKeyboard.appendChild(rowDiv);
+            });
+            const specialKeysRow = document.createElement('div');
+            specialKeysRow.className = 'keyboard-row';
+            const spaceBtn = document.createElement('button');
+            spaceBtn.type = 'button';
+            spaceBtn.className = 'keyboard-key special-key flex-4';
+            spaceBtn.textContent = 'Space';
+            spaceBtn.onclick = () => handleKeyPress(' ');
+            const backspaceBtn = document.createElement('button');
+            backspaceBtn.type = 'button';
+            backspaceBtn.className = 'keyboard-key special-key flex-2';
+            backspaceBtn.innerHTML = '&#9003;';
+            backspaceBtn.onclick = () => handleKeyPress('backspace');
+            specialKeysRow.appendChild(spaceBtn);
+            specialKeysRow.appendChild(backspaceBtn);
+            customKeyboard.appendChild(specialKeysRow);
+        }
+
+        function handleKeyPress(key) {
+            if (key === 'backspace') currentAnswerString = currentAnswerString.slice(0, -1);
+            else if (currentAnswerString.length < 60) currentAnswerString += key;
+            answerDisplayText.textContent = currentAnswerString;
+        }
+
+        function setupAnswerInputMode() {
+            if (quizType === 'en-zh') {
+                customKeyboard.classList.add('hidden');
+                answerDisplayContainer.classList.add('hidden');
+                answerInput.classList.remove('hidden');
+            } else {
+                createKeyboard();
+                customKeyboard.classList.remove('hidden');
+                answerDisplayContainer.classList.remove('hidden');
+                answerInput.classList.add('hidden');
+            }
+        }
+
+        function startGame(type) {
+            const lessonError = document.getElementById('lesson-error');
+            showHomeTab('quiz');
+            const selectedLessons = Array.from(lessonSelectionContainer.querySelectorAll('input:checked')).map(input => input.value);
+            if (selectedLessons.length === 0) {
+                lessonError.textContent = '請至少選擇一個單元！';
+                lessonError.classList.remove('hidden');
+                return;
+            }
+            lessonError.classList.add('hidden');
+
+            let selectedWords = [];
+            selectedLessons.forEach(lessonName => {
+                selectedWords = selectedWords.concat(wordBank[lessonName]);
+            });
+
+            quizType = type;
+            const count = document.getElementById('question-count').value;
+            const maxQuestions = count === 'all' ? selectedWords.length : Math.min(parseInt(count, 10), selectedWords.length);
+            currentQuiz = shuffleArray(selectedWords).slice(0, maxQuestions);
+            if (currentQuiz.length === 0) {
+                lessonError.textContent = '選取範圍內沒有單字可供測驗。';
+                lessonError.classList.remove('hidden');
+                return;
+            }
+
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            currentAnswerString = '';
+            setupAnswerInputMode();
+            settingsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            resultsScreen.classList.add('hidden');
+            document.getElementById('quiz-title').textContent = quizTitles[type] || '測驗進行中';
+            document.getElementById('total-question-number').textContent = currentQuiz.length;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const q = currentQuiz[currentQuestionIndex];
+            const questionPrompt = document.getElementById('question-prompt');
+            const questionText = document.getElementById('question-text');
+            currentAnswerString = '';
+            answerDisplayText.textContent = '';
+            answerInput.value = '';
+            document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
+
+            // 中翻英、克漏字：不顯示喇叭
+            speakBtn.classList.add('hidden');
+            speakBtn.onclick = null;
+
+            if (quizType === 'zh-en') {
+                questionPrompt.textContent = '請輸入對應的英文單字';
+                questionText.textContent = q.zh;
+            } else if (quizType === 'en-zh') {
+                questionPrompt.textContent = '請輸入中文意思';
+                questionText.textContent = q.en;
+                speakBtn.classList.remove('hidden');
+                speakBtn.onclick = () => speak(q.en);
+            } else if (quizType === 'fill-in') {
+                questionPrompt.textContent = '請填入句中缺少的英文單字';
+                questionText.textContent = q.sentence;
+            } else if (quizType === 'listening') {
+                questionPrompt.textContent = '聽音後輸入英文單字（可點喇叭重聽）';
+                questionText.textContent = '聽看看！';
+                speakBtn.classList.remove('hidden');
+                speakBtn.onclick = () => speak(q.en);
+                setTimeout(() => speak(q.en), 400);
+            }
+        }
+
+        function getCorrectAnswer(q) {
+            if (quizType === 'en-zh') return q.zh;
+            return q.en;
+        }
+
+        function checkAnswer(userAnswer, q) {
+            if (quizType === 'en-zh') return isChineseAnswerCorrect(userAnswer, q.zh);
+            return normalizeText(userAnswer) === normalizeText(q.en);
+        }
+
+        function submitAnswer() {
+            const q = currentQuiz[currentQuestionIndex];
+            const userAnswer = quizType === 'en-zh' ? answerInput.value.trim() : currentAnswerString.trim();
+            const correctAnswer = getCorrectAnswer(q);
+            const isCorrect = checkAnswer(userAnswer, q);
+            userAnswers.push({ question: q, userAnswer, correctAnswer, isCorrect, quizType });
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= currentQuiz.length) showResults();
+            else displayQuestion();
+        }
+
+        function showResults() {
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const total = userAnswers.length;
+            const score = total === 0 ? 0 : Math.round((correctCount / total) * 100);
+            document.getElementById('score').textContent = score;
+            document.getElementById('score-details').textContent = `答對 ${correctCount} 題中的 ${total} 題`;
+            const reviewSection = document.getElementById('review-section');
+            const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+            if (wrongAnswers.length === 0) {
+                reviewSection.innerHTML = '<p class="text-center text-red-700 font-bold text-lg">全部答對！</p>';
+            } else {
+                reviewSection.innerHTML = '<h3 class="text-lg font-black text-stone-900 mb-2">錯題複習</h3>' + wrongAnswers.map(item => `
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+                        <p class="font-semibold text-stone-900">${escapeHtml(item.question.en)} — ${escapeHtml(item.question.zh)}</p>
+                        <p class="text-sm text-stone-600 mt-1">你的答案：<span class="text-red-600">${escapeHtml(item.userAnswer || '（未作答）')}</span></p>
+                        <p class="text-sm text-stone-600">正確答案：<span class="text-green-700">${escapeHtml(item.correctAnswer)}</span></p>
+                    </div>
+                `).join('');
+            }
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            settingsScreen.classList.remove('hidden');
+        }
+
+        answerInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
+        miniInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') checkMiniQuiz(); });
+        miniModal.addEventListener('click', (e) => { if (e.target === miniModal) closeMiniQuiz(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!miniModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeMiniQuiz();
+                return;
+            }
+            if (quizScreen.classList.contains('hidden')) return;
+            if (quizType === 'en-zh') return;
+            if (e.key === 'Backspace') { e.preventDefault(); handleKeyPress('backspace'); return; }
+            if (e.key === ' ') { e.preventDefault(); handleKeyPress(' '); return; }
+            if (e.key === 'Enter') { submitAnswer(); return; }
+            if (e.key.length === 1 && /[a-zA-Z\-']/.test(e.key)) handleKeyPress(e.key.toLowerCase());
+        });
+
+        populateLessonCheckboxes();
+        populateVocabLessonSelect();
+        populateVoiceList();
+        if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = populateVoiceList;
+    </script>
+</body>
+</html>
