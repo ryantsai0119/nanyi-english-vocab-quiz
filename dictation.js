@@ -18,6 +18,7 @@
     let dictLooping = false;
     let dictSpeakText = '';
     let dictMode = 'sentence'; // sentence | dialogue
+    let dictShift = false; // keyboard uppercase
 
     function $(id) { return document.getElementById(id); }
 
@@ -245,20 +246,36 @@
                 html += `<span class="punct-fixed" title="標點不用輸入">${escapeHtml(t.ch)}</span>`;
             } else {
                 const val = dictLetterValues[letterIdx] || '';
+                const expected = t.ch;
                 let cls = 'letter-slot';
                 if (mode === 'result') {
-                    cls += val === t.ch ? ' correct' : ' wrong';
+                    cls += (val.toLowerCase() === expected) ? ' correct' : ' wrong';
                     html += `<span class="${cls}">${escapeHtml(val || '·')}</span>`;
                 } else {
                     if (letterIdx === dictLetterPos) cls += ' current';
                     if (val) cls += ' filled';
-                    html += `<span class="${cls}">${escapeHtml(val)}</span>`;
+                    html += `<button type="button" class="${cls}" data-slot="${letterIdx}" onclick="Dictation.focusSlot(${letterIdx})" aria-label="第 ${letterIdx + 1} 格">${escapeHtml(val)}</button>`;
                 }
                 letterIdx++;
             }
         });
         box.innerHTML = html;
     }
+
+    function focusSlot(idx) {
+        if (dictChecked) return;
+        const n = dictLetterValues.length;
+        if (!n) return;
+        dictLetterPos = Math.max(0, Math.min(n - 1, idx | 0));
+        renderSlots();
+    }
+
+    function toggleShift() {
+        dictShift = !dictShift;
+        if (typeof window.refreshDictKeyboard === 'function') window.refreshDictKeyboard();
+    }
+
+    function isShiftOn() { return !!dictShift; }
 
     function pickVoice(voices, pref) {
         const en = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
@@ -345,15 +362,24 @@
     function handleKey(key) {
         if (dictChecked) return;
         const n = dictLetterValues.length;
-        if (!n && key !== 'backspace') return;
+        if (!n && key !== 'backspace' && key !== 'shift') return;
 
+        if (key === 'shift') {
+            toggleShift();
+            return;
+        }
         // . and ' : optional keys; punctuation is shown and not scored — ignore for filling
         if (key === '.' || key === "'") {
             return;
         }
         if (key === 'backspace') {
-            if (dictLetterPos > 0 && !dictLetterValues[dictLetterPos]) dictLetterPos--;
-            dictLetterValues[dictLetterPos] = '';
+            // Cursor on a filled slot → clear it; on empty → move left then clear
+            if (dictLetterValues[dictLetterPos]) {
+                dictLetterValues[dictLetterPos] = '';
+            } else if (dictLetterPos > 0) {
+                dictLetterPos--;
+                dictLetterValues[dictLetterPos] = '';
+            }
             renderSlots();
             return;
         }
@@ -362,11 +388,11 @@
             let target = null;
             let seenCurrent = false;
             for (let i = 0; i < dictTokens.length; i++) {
-                const t = dictTokens[i];
-                if (t.type === 'letter') {
+                const tok = dictTokens[i];
+                if (tok.type === 'letter') {
                     if (letterIdx === dictLetterPos) seenCurrent = true;
                     letterIdx++;
-                } else if (t.type === 'gap' && seenCurrent) {
+                } else if (tok.type === 'gap' && seenCurrent) {
                     let li = 0;
                     for (let j = 0; j < dictTokens.length; j++) {
                         if (dictTokens[j].type === 'letter') {
@@ -383,7 +409,9 @@
             }
             return;
         }
-        if (/^[a-z]$/.test(key)) {
+        if (/^[a-zA-Z]$/.test(key)) {
+            // Apply shift toggle for letter keys from on-screen keyboard (already cased by UI),
+            // physical keyboard sends its own case.
             dictLetterValues[dictLetterPos] = key;
             if (dictLetterPos < n - 1) dictLetterPos++;
             renderSlots();
@@ -398,7 +426,7 @@
         if (total) {
             let ok = 0;
             for (let i = 0; i < total; i++) {
-                if ((dictLetterValues[i] || '') === expected[i]) ok++;
+                if ((dictLetterValues[i] || '').toLowerCase() === expected[i]) ok++;
             }
             pct = Math.round((ok / total) * 100);
         }
@@ -489,6 +517,9 @@
         backToPicker,
         backHome,
         onPrefChange,
+        focusSlot,
+        toggleShift,
+        isShiftOn,
         isActive() {
             const scr = $('dictation-screen');
             return scr && !scr.classList.contains('hidden');

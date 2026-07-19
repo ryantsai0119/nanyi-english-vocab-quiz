@@ -258,6 +258,12 @@
         .letter-slot.current { border-bottom-color: #e11d2e; box-shadow: 0 2px 0 #e11d2e; }
         .letter-slot.correct { color: #15803d; border-bottom-color: #15803d; }
         .letter-slot.wrong { color: #dc2626; border-bottom-color: #dc2626; }
+        button.letter-slot {
+            appearance: none; -webkit-appearance: none; border-top: none; border-left: none; border-right: none;
+            background: transparent; padding: 0; cursor: pointer; font: inherit;
+        }
+        button.letter-slot:active { background: rgba(225, 29, 46, 0.08); }
+        .keyboard-key.shift-on { background: #e11d2e; color: #fff; border-color: #fff; }
         .word-gap { display: inline-block; width: 0.55rem; }
         .punct-fixed { color: #a8a29e; font-weight: 600; margin: 0 1px 4px; align-self: flex-end; }
         .dict-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 0.75rem; }
@@ -394,7 +400,7 @@
         <!-- 聽寫：選區段 -->
         <div id="dictation-picker-screen" class="card hidden text-left">
             <h1 class="title-hero text-3xl sm:text-4xl mb-1 text-center">聽寫練習</h1>
-            <p class="text-center text-xs text-stone-400 mb-1">版面 v2.3 · 已修正半屏問題</p>
+            <p class="text-center text-xs text-stone-400 mb-1">版面 v2.4 · 可點格修正／大小寫</p>
             <p class="text-stone-600 text-sm mb-1 text-center">選課次／複習區段（如 1-1、R1-2）</p>
             <p class="text-stone-500 text-xs mb-3 text-center">循環聽句子 → 字母空格打字（標點與 ' 不用計分）→ 對答案</p>
             <div class="dict-prefs panel mb-4 text-sm space-y-2">
@@ -445,7 +451,7 @@
                 </div>
             </div>
             <p id="dict-mode-note" class="text-stone-500 text-xs text-center mb-1">模式：逐句循環</p>
-            <p class="text-stone-600 text-sm text-center mb-2">聽句子，把每個字母填進空格（. 與 ' 可按但不計分）</p>
+            <p class="text-stone-600 text-sm text-center mb-2">聽句子填字母；可點前面空格修正。鍵盤 abc/ABC 切換大小寫（. 與 ' 不計分）</p>
             <div class="dict-toolbar">
                 <button type="button" id="dict-loop-btn" class="btn-mini" onclick="Dictation.toggleLoop()">▶ 循環播放</button>
                 <button type="button" class="btn-mini" onclick="Dictation.replayOnce()">重聽一次</button>
@@ -499,9 +505,9 @@
         </div>
     </div>
 
-    <script src="vocab-data.js?v=20260719d"></script>
-    <script src="dictation-data.js?v=20260719d"></script>
-    <script src="dictation.js?v=20260719d"></script>
+    <script src="vocab-data.js?v=20260719e"></script>
+    <script src="dictation-data.js?v=20260719e"></script>
+    <script src="dictation.js?v=20260719e"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
@@ -758,23 +764,31 @@
         function buildDictKeyboard() {
             const box = document.getElementById('dict-keyboard');
             if (!box) return;
+            const upper = typeof Dictation !== 'undefined' && Dictation.isShiftOn && Dictation.isShiftOn();
             const rows = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m']];
             box.innerHTML = '';
             rows.forEach(row => {
                 const rowDiv = document.createElement('div');
                 rowDiv.className = 'keyboard-row';
                 row.forEach(key => {
+                    const shown = upper ? key.toUpperCase() : key;
                     const keyBtn = document.createElement('button');
                     keyBtn.type = 'button';
                     keyBtn.className = 'keyboard-key';
-                    keyBtn.textContent = key;
-                    keyBtn.onclick = () => Dictation.handleKey(key);
+                    keyBtn.textContent = shown;
+                    keyBtn.onclick = () => Dictation.handleKey(shown);
                     rowDiv.appendChild(keyBtn);
                 });
                 box.appendChild(rowDiv);
             });
             const special = document.createElement('div');
             special.className = 'keyboard-row';
+            const shiftBtn = document.createElement('button');
+            shiftBtn.type = 'button';
+            shiftBtn.className = 'keyboard-key special-key flex-2' + (upper ? ' shift-on' : '');
+            shiftBtn.textContent = upper ? 'ABC' : 'abc';
+            shiftBtn.title = '切換大小寫';
+            shiftBtn.onclick = () => Dictation.toggleShift();
             const dotBtn = document.createElement('button');
             dotBtn.type = 'button';
             dotBtn.className = 'keyboard-key special-key';
@@ -795,12 +809,14 @@
             backspaceBtn.className = 'keyboard-key special-key flex-2';
             backspaceBtn.innerHTML = '&#9003;';
             backspaceBtn.onclick = () => Dictation.handleKey('backspace');
+            special.appendChild(shiftBtn);
             special.appendChild(dotBtn);
             special.appendChild(aposBtn);
             special.appendChild(spaceBtn);
             special.appendChild(backspaceBtn);
             box.appendChild(special);
         }
+        window.refreshDictKeyboard = buildDictKeyboard;
 
         function handleKeyPress(key) {
             if (key === 'backspace') currentAnswerString = currentAnswerString.slice(0, -1);
@@ -960,7 +976,7 @@
                     return;
                 }
                 if (e.key === '.' || e.key === "'") { e.preventDefault(); Dictation.handleKey(e.key); return; }
-                if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) Dictation.handleKey(e.key.toLowerCase());
+                if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) { e.preventDefault(); Dictation.handleKey(e.key); }
                 return;
             }
             if (quizScreen.classList.contains('hidden')) return;
