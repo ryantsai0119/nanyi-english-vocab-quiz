@@ -157,7 +157,7 @@
             if (label !== curLabel) {
                 if (curLabel !== null) html += '</div></div>';
                 curLabel = label;
-                html += `<div class="mb-4"><p class="text-sm font-bold text-stone-700 mb-2">${label}</p><div class="grid grid-cols-3 gap-2">`;
+                html += `<div class="mb-4"><p class="text-sm font-bold text-stone-700 mb-2">${label}</p><div class="dict-section-grid">`;
             }
             const mode = item.hasDialogueMode ? prefs.section3Mode : 'sentence';
             const segs = mode === 'dialogue' && item.dialogueSegments && item.dialogueSegments.length
@@ -168,11 +168,14 @@
             const modeHint = item.hasDialogueMode
                 ? (mode === 'dialogue' ? '整段' : '逐句')
                 : '';
+            const sub = escapeHtml(item.title.split('｜')[1] || '') + (modeHint ? ' · ' + modeHint : '');
             html += `
                 <button type="button" class="dict-cell" onclick="Dictation.startSection('${key}')">
                     <span class="dict-cell-id">${key}</span>
-                    <span class="dict-cell-sub">${escapeHtml(item.title.split('｜')[1] || '')}${modeHint ? ' · ' + modeHint : ''}</span>
-                    <span class="dict-cell-meta">${segs.length} ${unit} · 最高 ${bestLabel}</span>
+                    <span class="dict-cell-body">
+                        <span class="dict-cell-sub">${sub}</span>
+                        <span class="dict-cell-meta">${segs.length} ${unit} · 最高 ${bestLabel}</span>
+                    </span>
                 </button>`;
         });
         if (curLabel !== null) html += '</div></div>';
