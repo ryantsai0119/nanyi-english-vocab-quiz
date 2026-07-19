@@ -197,13 +197,81 @@
         .result-ok { color: #15803d; font-weight: 800; }
         .result-bad { color: #b91c1c; font-weight: 800; }
         .tab-btn {
-            flex: 1; padding: 0.65rem; font-weight: 700; border-radius: 0.7rem;
+            flex: 1; padding: 0.55rem 0.25rem; font-weight: 700; border-radius: 0.7rem;
             border: 2px solid #e7c4a4; background: #fff; color: #5a4638; cursor: pointer;
+            font-size: 0.82rem; line-height: 1.2;
         }
         .tab-btn.active {
             background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
             color: #fff; border-color: #fff;
         }
+        .learn-sub-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
+        .learn-sub-tabs .tab-btn { font-size: 0.9rem; padding: 0.55rem; }
+        .learn-board {
+            background: #2b211c; color: #f5e6d3; border-radius: 0.85rem;
+            padding: 0.9rem 1rem; border: 2px solid #5a4638;
+        }
+        .learn-board-title {
+            font-family: 'Oswald', sans-serif; font-size: 1.05rem; color: #ffd27a;
+            margin: 0 0 0.55rem; letter-spacing: 0.02em;
+        }
+        .learn-oneliner { font-size: 0.92rem; line-height: 1.45; margin: 0; }
+        .learn-oneliner span { color: #ff8a1f; font-weight: 700; }
+        .learn-fold {
+            background: #fff; border: 2px solid #e7c4a4; border-radius: 0.75rem;
+            margin-bottom: 0.55rem; overflow: hidden;
+        }
+        .learn-fold > summary {
+            cursor: pointer; font-weight: 800; color: #3a2416; padding: 0.7rem 0.85rem;
+            list-style: none; background: #fff4e8;
+        }
+        .learn-fold > summary::-webkit-details-marker { display: none; }
+        .learn-fold[open] > summary { border-bottom: 1px solid #e7c4a4; }
+        .learn-fold-body { padding: 0.75rem 0.85rem 0.9rem; font-size: 0.92rem; }
+        .learn-paras p { margin: 0 0 0.55rem; color: #3a2416; line-height: 1.55; }
+        .learn-list { margin: 0; padding-left: 1.1rem; color: #3a2416; }
+        .learn-list li { margin-bottom: 0.35rem; line-height: 1.45; }
+        .learn-ex {
+            background: #fffaf4; border: 1px solid #efd2b6; border-radius: 0.6rem;
+            padding: 0.55rem 0.65rem;
+        }
+        .learn-trap {
+            background: #fff; border: 1px solid #efd2b6; border-radius: 0.6rem;
+            padding: 0.55rem 0.7rem; margin-bottom: 0.5rem;
+        }
+        .trap-bad { color: #b91c1c; font-weight: 700; margin: 0 0 0.25rem; }
+        .trap-ok { color: #15803d; font-weight: 700; margin: 0; }
+        .learn-quiz {
+            border: 1px dashed #e7c4a4; border-radius: 0.65rem;
+            padding: 0.7rem; margin-bottom: 0.65rem; background: #fffaf4;
+        }
+        .learn-quiz-opt {
+            display: block; width: 100%; text-align: left; margin-top: 0.4rem;
+            padding: 0.55rem 0.7rem; border-radius: 0.55rem; border: 1px solid #e7c4a4;
+            background: #fff; font-size: 0.88rem; cursor: pointer; color: #3a2416;
+        }
+        .learn-quiz-opt:hover:not(:disabled) { border-color: #e11d2e; }
+        .learn-quiz-opt.correct { background: #dcfce7; border-color: #15803d; color: #166534; }
+        .learn-quiz-opt.wrong { background: #fee2e2; border-color: #b91c1c; color: #991b1b; }
+        .learn-sec-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .learn-sec-chip {
+            padding: 0.35rem 0.6rem; font-size: 0.78rem; font-weight: 700;
+            border-radius: 999px; border: 1px solid #e7c4a4; background: #fff; color: #5a4638; cursor: pointer;
+        }
+        .learn-sec-chip.active {
+            background: #c8101e; color: #fff; border-color: #fff;
+        }
+        .learn-line {
+            background: #fff; border: 1px solid #efd2b6; border-radius: 0.7rem;
+            padding: 0.65rem 0.7rem;
+        }
+        .learn-line-no {
+            font-family: 'Oswald', sans-serif; color: #c8101e; font-weight: 700;
+            min-width: 1.25rem;
+        }
+        .learn-line-en { font-weight: 800; color: #1f140e; line-height: 1.4; margin: 0; }
+        .learn-line-zh { font-size: 0.88rem; color: #78716c; margin: 0.25rem 0 0; line-height: 1.4; }
+        .btn-speak { font-size: 0.72rem; font-weight: 800; }
 
         /* 聽寫練習 */
         .dict-section-grid {
@@ -310,6 +378,7 @@
             <div class="flex gap-2 mb-5">
                 <button type="button" id="tab-quiz" class="tab-btn active" onclick="showHomeTab('quiz')">開始測驗</button>
                 <button type="button" id="tab-vocab" class="tab-btn" onclick="showHomeTab('vocab')">各課單字表</button>
+                <button type="button" id="tab-learn" class="tab-btn" onclick="showHomeTab('learn')">課程學習</button>
             </div>
 
             <div id="home-quiz" class="space-y-6 text-left">
@@ -352,6 +421,17 @@
                     <button type="button" class="btn-mini" onclick="clearLessonMemorized()">清除本課打勾</button>
                 </div>
                 <div id="vocab-list" class="bg-white rounded-xl border border-[#e7c4a4] max-h-[55vh] overflow-y-auto"></div>
+            </div>
+
+            <div id="home-learn" class="hidden text-left">
+                <p class="text-stone-600 text-sm mb-2 text-center">課文（英／中／語音）＋文法速成</p>
+                <label class="block text-sm font-bold text-stone-700 mb-2">選擇課次</label>
+                <select id="learn-lesson-select" class="input-field mb-3" onchange="Learn.onLessonChange()"></select>
+                <div class="learn-sub-tabs">
+                    <button type="button" id="learn-sub-grammar" class="tab-btn active" onclick="Learn.setSubTab('grammar')">文法</button>
+                    <button type="button" id="learn-sub-reading" class="tab-btn" onclick="Learn.setSubTab('reading')">課文</button>
+                </div>
+                <div id="learn-body" class="max-h-[62vh] overflow-y-auto pr-0.5"></div>
             </div>
         </div>
 
@@ -505,9 +585,12 @@
         </div>
     </div>
 
-    <script src="vocab-data.js?v=20260719e"></script>
-    <script src="dictation-data.js?v=20260719e"></script>
-    <script src="dictation.js?v=20260719e"></script>
+    <script src="vocab-data.js?v=20260719f"></script>
+    <script src="dictation-data.js?v=20260719f"></script>
+    <script src="dictation.js?v=20260719f"></script>
+    <script src="grammar-data.js?v=20260719f"></script>
+    <script src="reading-data.js?v=20260719f"></script>
+    <script src="learn.js?v=20260719f"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
@@ -545,11 +628,16 @@
         function showHomeTab(tab) {
             const quiz = document.getElementById('home-quiz');
             const vocab = document.getElementById('home-vocab');
+            const learn = document.getElementById('home-learn');
             document.getElementById('tab-quiz').classList.toggle('active', tab === 'quiz');
             document.getElementById('tab-vocab').classList.toggle('active', tab === 'vocab');
+            document.getElementById('tab-learn').classList.toggle('active', tab === 'learn');
             quiz.classList.toggle('hidden', tab !== 'quiz');
             vocab.classList.toggle('hidden', tab !== 'vocab');
+            learn.classList.toggle('hidden', tab !== 'learn');
             if (tab === 'vocab') renderVocabList();
+            if (tab === 'learn' && window.Learn) Learn.show();
+            if (tab !== 'learn' && window.Learn) Learn.stopSpeak();
         }
 
         function populateLessonCheckboxes() {
