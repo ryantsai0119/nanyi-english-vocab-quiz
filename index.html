@@ -178,6 +178,41 @@
             background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
             color: #fff; border-color: #fff;
         }
+
+        /* 聽寫練習 */
+        .dict-cell {
+            display: flex; flex-direction: column; align-items: flex-start;
+            text-align: left; padding: 0.7rem 0.65rem; border-radius: 0.85rem;
+            background: #fff; border: 2px solid #e7c4a4; cursor: pointer;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+        .dict-cell:hover { border-color: #e11d2e; transform: translateY(-1px); }
+        .dict-cell-id { font-family: 'Oswald', sans-serif; font-size: 1.25rem; color: #c8101e; font-weight: 700; }
+        .dict-cell-sub { font-size: 0.75rem; color: #57534e; margin-top: 0.15rem; }
+        .dict-cell-meta { font-size: 0.7rem; color: #a8a29e; margin-top: 0.35rem; }
+        #dict-slots {
+            display: flex; flex-wrap: wrap; align-items: flex-end;
+            justify-content: center; gap: 2px 0; line-height: 1.8;
+            min-height: 4.5rem; padding: 0.5rem 0.25rem;
+        }
+        .letter-slot {
+            display: inline-flex; width: 1.05rem; height: 1.55rem;
+            border-bottom: 2px solid #c88242; justify-content: center; align-items: flex-end;
+            margin: 0 1px 4px; font-weight: 700; font-size: 0.95rem; color: #1f140e;
+        }
+        .letter-slot.filled { color: #1f140e; }
+        .letter-slot.current { border-bottom-color: #e11d2e; box-shadow: 0 2px 0 #e11d2e; }
+        .letter-slot.correct { color: #15803d; border-bottom-color: #15803d; }
+        .letter-slot.wrong { color: #dc2626; border-bottom-color: #dc2626; }
+        .word-gap { display: inline-block; width: 0.55rem; }
+        .punct-fixed { color: #a8a29e; font-weight: 600; margin: 0 1px 4px; align-self: flex-end; }
+        .dict-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 0.75rem; }
+        .dict-result-row {
+            display: flex; justify-content: space-between; gap: 0.75rem;
+            padding: 0.55rem 0.75rem; background: #fff; border: 1px solid #e7c4a4;
+            border-radius: 0.65rem; font-size: 0.85rem;
+        }
+        #dict-keyboard .keyboard-key { height: 44px; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 sm:p-6">
@@ -221,7 +256,7 @@
                     <div class="grid grid-cols-2 gap-3">
                         <button onclick="startGame('zh-en')" class="btn btn-primary">中翻英</button>
                         <button onclick="startGame('en-zh')" class="btn btn-primary">英翻中</button>
-                        <button onclick="startGame('fill-in')" class="btn btn-primary">克漏字</button>
+                        <button type="button" onclick="Dictation.openPicker()" class="btn btn-primary">聽寫練習</button>
                         <button onclick="startGame('listening')" class="btn btn-primary">聽力測驗</button>
                     </div>
                 </div>
@@ -281,6 +316,60 @@
         </div>
     </div>
 
+
+        <!-- 聽寫：選區段 -->
+        <div id="dictation-picker-screen" class="card hidden text-left">
+            <h1 class="title-hero text-3xl sm:text-4xl mb-1 text-center">聽寫練習</h1>
+            <p class="text-stone-600 text-sm mb-1 text-center">選課次區段（如 1-1 辨識句意）</p>
+            <p class="text-stone-500 text-xs mb-4 text-center">循環聽句子 → 依字母空格打字 → 對答案看完成度</p>
+            <div id="dictation-grid"></div>
+            <button type="button" onclick="Dictation.backHome()" class="btn btn-secondary w-full mt-5">回首頁</button>
+        </div>
+
+        <!-- 聽寫：作答 -->
+        <div id="dictation-screen" class="card hidden">
+            <div class="flex justify-between items-start mb-3 gap-2">
+                <div>
+                    <p class="text-xs text-stone-500"><span id="dict-section-id">1-1</span></p>
+                    <h2 id="dict-section-title" class="text-lg font-black text-stone-900">Lesson 1｜辨識句意</h2>
+                </div>
+                <div class="badge">
+                    <span id="dict-current">1</span> / <span id="dict-total">5</span>
+                </div>
+            </div>
+            <p class="text-stone-600 text-sm text-center mb-2">聽句子，把每個字母填進空格（標點不用輸入）</p>
+            <div class="dict-toolbar">
+                <button type="button" id="dict-loop-btn" class="btn-mini" onclick="Dictation.toggleLoop()">▶ 循環播放</button>
+                <button type="button" class="btn-mini" onclick="Dictation.replayOnce()">重聽一次</button>
+            </div>
+            <div class="panel mb-4">
+                <div id="dict-slots" aria-label="字母空格作答區"></div>
+                <p id="dict-reveal" class="hidden text-center text-sm text-stone-600 mt-3 font-medium"></p>
+            </div>
+            <p id="dict-feedback" class="hidden text-center text-red-700 font-bold mb-3"></p>
+            <div class="space-y-3">
+                <button type="button" id="dict-check-btn" onclick="Dictation.checkAnswer()" class="btn btn-primary w-full">對答案</button>
+                <button type="button" id="dict-next-btn" onclick="Dictation.nextSegment()" class="btn btn-primary w-full hidden">下一句</button>
+            </div>
+            <div id="dict-keyboard" class="mt-5"></div>
+            <button type="button" onclick="Dictation.backToPicker()" class="btn btn-secondary w-full mt-4">回選課</button>
+        </div>
+
+        <!-- 聽寫：區段結果 -->
+        <div id="dictation-results-screen" class="card hidden text-center">
+            <h1 class="title-hero text-4xl mb-2">區段完成</h1>
+            <p id="dict-result-title" class="text-stone-600 mb-4">Lesson 1｜辨識句意</p>
+            <div class="score-panel">
+                <p class="text-lg text-red-800 font-bold">平均完成度</p>
+                <h2 id="dict-result-avg" class="text-7xl font-black text-red-600 my-2">100</h2>
+                <p id="dict-result-detail" class="text-stone-600">共 5 句</p>
+                <p id="dict-result-best" class="text-sm text-stone-500 mt-2">本區段最高分：—</p>
+            </div>
+            <div id="dict-result-list" class="space-y-2 text-left mb-4 max-h-[40vh] overflow-y-auto"></div>
+            <button type="button" onclick="Dictation.backToPicker()" class="btn btn-primary w-full mb-3">再選區段</button>
+            <button type="button" onclick="Dictation.backHome()" class="btn btn-secondary w-full">回首頁</button>
+        </div>
+
     <!-- 小測驗彈窗 -->
     <div id="mini-quiz-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
         <div class="modal-card">
@@ -299,6 +388,8 @@
     </div>
 
     <script src="vocab-data.js"></script>
+    <script src="dictation-data.js"></script>
+    <script src="dictation.js"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
@@ -321,7 +412,6 @@
         const quizTitles = {
             'zh-en': '中翻英',
             'en-zh': '英翻中',
-            'fill-in': '克漏字',
             'listening': '聽力測驗'
         };
 
@@ -540,6 +630,42 @@
             customKeyboard.appendChild(specialKeysRow);
         }
 
+
+        function buildDictKeyboard() {
+            const box = document.getElementById('dict-keyboard');
+            if (!box) return;
+            const rows = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m']];
+            box.innerHTML = '';
+            rows.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'keyboard-row';
+                row.forEach(key => {
+                    const keyBtn = document.createElement('button');
+                    keyBtn.type = 'button';
+                    keyBtn.className = 'keyboard-key';
+                    keyBtn.textContent = key;
+                    keyBtn.onclick = () => Dictation.handleKey(key);
+                    rowDiv.appendChild(keyBtn);
+                });
+                box.appendChild(rowDiv);
+            });
+            const special = document.createElement('div');
+            special.className = 'keyboard-row';
+            const spaceBtn = document.createElement('button');
+            spaceBtn.type = 'button';
+            spaceBtn.className = 'keyboard-key special-key flex-4';
+            spaceBtn.textContent = '下一個字';
+            spaceBtn.onclick = () => Dictation.handleKey(' ');
+            const backspaceBtn = document.createElement('button');
+            backspaceBtn.type = 'button';
+            backspaceBtn.className = 'keyboard-key special-key flex-2';
+            backspaceBtn.innerHTML = '&#9003;';
+            backspaceBtn.onclick = () => Dictation.handleKey('backspace');
+            special.appendChild(spaceBtn);
+            special.appendChild(backspaceBtn);
+            box.appendChild(special);
+        }
+
         function handleKeyPress(key) {
             if (key === 'backspace') currentAnswerString = currentAnswerString.slice(0, -1);
             else if (currentAnswerString.length < 60) currentAnswerString += key;
@@ -606,7 +732,7 @@
             answerInput.value = '';
             document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
 
-            // 中翻英、克漏字：不顯示喇叭
+            // 中翻英：不顯示喇叭
             speakBtn.classList.add('hidden');
             speakBtn.onclick = null;
 
@@ -618,9 +744,6 @@
                 questionText.textContent = q.en;
                 speakBtn.classList.remove('hidden');
                 speakBtn.onclick = () => speak(q.en);
-            } else if (quizType === 'fill-in') {
-                questionPrompt.textContent = '請填入句中缺少的英文單字';
-                questionText.textContent = q.sentence;
             } else if (quizType === 'listening') {
                 questionPrompt.textContent = '聽音後輸入英文單字（可點喇叭重聽）';
                 questionText.textContent = '聽看看！';
@@ -675,6 +798,7 @@
         }
 
         function restartQuiz() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
             resultsScreen.classList.add('hidden');
             quizScreen.classList.add('hidden');
             settingsScreen.classList.remove('hidden');
@@ -689,6 +813,19 @@
                 if (e.key === 'Escape') closeMiniQuiz();
                 return;
             }
+            if (typeof Dictation !== 'undefined' && Dictation.isActive()) {
+                if (e.key === 'Escape') { Dictation.backToPicker(); return; }
+                if (e.key === 'Backspace') { e.preventDefault(); Dictation.handleKey('backspace'); return; }
+                if (e.key === ' ') { e.preventDefault(); Dictation.handleKey(' '); return; }
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (Dictation.isChecked()) Dictation.nextSegment();
+                    else Dictation.checkAnswer();
+                    return;
+                }
+                if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) Dictation.handleKey(e.key.toLowerCase());
+                return;
+            }
             if (quizScreen.classList.contains('hidden')) return;
             if (quizType === 'en-zh') return;
             if (e.key === 'Backspace') { e.preventDefault(); handleKeyPress('backspace'); return; }
@@ -700,6 +837,7 @@
         populateLessonCheckboxes();
         populateVocabLessonSelect();
         populateVoiceList();
+        buildDictKeyboard();
         if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = populateVoiceList;
     </script>
 </body>
