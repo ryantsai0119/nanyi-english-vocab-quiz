@@ -291,7 +291,7 @@
         }
     </style>
 </head>
-<body class="flex justify-center items-start min-h-screen p-3 sm:p-6">
+<body class="min-h-screen p-3 sm:p-6">
 
     <div id="app" class="w-full max-w-md mx-auto min-w-0">
 
@@ -390,13 +390,11 @@
             <div id="review-section" class="space-y-4 text-left"></div>
             <button onclick="restartQuiz()" class="btn btn-secondary w-full mt-8">重新測驗</button>
         </div>
-    </div>
-
 
         <!-- 聽寫：選區段 -->
         <div id="dictation-picker-screen" class="card hidden text-left">
             <h1 class="title-hero text-3xl sm:text-4xl mb-1 text-center">聽寫練習</h1>
-            <p class="text-center text-xs text-stone-400 mb-1">版面 v2.2 · 若仍擠成細條請強制重新整理</p>
+            <p class="text-center text-xs text-stone-400 mb-1">版面 v2.3 · 已修正半屏問題</p>
             <p class="text-stone-600 text-sm mb-1 text-center">選課次／複習區段（如 1-1、R1-2）</p>
             <p class="text-stone-500 text-xs mb-3 text-center">循環聽句子 → 字母空格打字（標點與 ' 不用計分）→ 對答案</p>
             <div class="dict-prefs panel mb-4 text-sm space-y-2">
@@ -481,6 +479,9 @@
             <button type="button" onclick="Dictation.backHome()" class="btn btn-secondary w-full">回首頁</button>
         </div>
 
+    </div>
+
+
     <!-- 小測驗彈窗 -->
     <div id="mini-quiz-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
         <div class="modal-card">
@@ -498,9 +499,9 @@
         </div>
     </div>
 
-    <script src="vocab-data.js?v=20260719c"></script>
-    <script src="dictation-data.js?v=20260719c"></script>
-    <script src="dictation.js?v=20260719c"></script>
+    <script src="vocab-data.js?v=20260719d"></script>
+    <script src="dictation-data.js?v=20260719d"></script>
+    <script src="dictation.js?v=20260719d"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
