@@ -213,6 +213,8 @@
             border-radius: 0.65rem; font-size: 0.85rem;
         }
         #dict-keyboard .keyboard-key { height: 44px; }
+        .dict-prefs label { color: #44403c; font-size: 0.8rem; }
+        .dict-prefs select.input-field { padding: 0.45rem 0.6rem; font-size: 0.85rem; }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 sm:p-6">
@@ -320,8 +322,40 @@
         <!-- 聽寫：選區段 -->
         <div id="dictation-picker-screen" class="card hidden text-left">
             <h1 class="title-hero text-3xl sm:text-4xl mb-1 text-center">聽寫練習</h1>
-            <p class="text-stone-600 text-sm mb-1 text-center">選課次區段（如 1-1 辨識句意）</p>
-            <p class="text-stone-500 text-xs mb-4 text-center">循環聽句子 → 依字母空格打字 → 對答案看完成度</p>
+            <p class="text-stone-600 text-sm mb-1 text-center">選課次／複習區段（如 1-1、R1-2）</p>
+            <p class="text-stone-500 text-xs mb-3 text-center">循環聽句子 → 字母空格打字（標點與 ' 不用計分）→ 對答案</p>
+            <div class="dict-prefs panel mb-4 text-sm space-y-2">
+                <p class="font-bold text-stone-800 text-center">播放設定</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="block">語速
+                        <select id="dict-pref-rate" class="input-field mt-1" onchange="Dictation.onPrefChange()">
+                            <option value="0.75">慢 0.75</option>
+                            <option value="0.9" selected>中 0.9</option>
+                            <option value="1">快 1.0</option>
+                        </select>
+                    </label>
+                    <label class="block">聲音
+                        <select id="dict-pref-voice" class="input-field mt-1" onchange="Dictation.onPrefChange()">
+                            <option value="auto" selected>自動</option>
+                            <option value="female">偏女聲</option>
+                            <option value="male">偏男聲</option>
+                        </select>
+                    </label>
+                    <label class="block">循環間隔
+                        <select id="dict-pref-gap" class="input-field mt-1" onchange="Dictation.onPrefChange()">
+                            <option value="250">0.25 秒</option>
+                            <option value="400" selected>0.4 秒</option>
+                            <option value="700">0.7 秒</option>
+                        </select>
+                    </label>
+                    <label class="block">言談理解
+                        <select id="dict-pref-mode" class="input-field mt-1" onchange="Dictation.onPrefChange()">
+                            <option value="sentence" selected>逐句循環</option>
+                            <option value="dialogue">整段對話</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
             <div id="dictation-grid"></div>
             <button type="button" onclick="Dictation.backHome()" class="btn btn-secondary w-full mt-5">回首頁</button>
         </div>
@@ -337,7 +371,8 @@
                     <span id="dict-current">1</span> / <span id="dict-total">5</span>
                 </div>
             </div>
-            <p class="text-stone-600 text-sm text-center mb-2">聽句子，把每個字母填進空格（標點不用輸入）</p>
+            <p id="dict-mode-note" class="text-stone-500 text-xs text-center mb-1">模式：逐句循環</p>
+            <p class="text-stone-600 text-sm text-center mb-2">聽句子，把每個字母填進空格（. 與 ' 可按但不計分）</p>
             <div class="dict-toolbar">
                 <button type="button" id="dict-loop-btn" class="btn-mini" onclick="Dictation.toggleLoop()">▶ 循環播放</button>
                 <button type="button" class="btn-mini" onclick="Dictation.replayOnce()">重聽一次</button>
@@ -349,6 +384,7 @@
             <p id="dict-feedback" class="hidden text-center text-red-700 font-bold mb-3"></p>
             <div class="space-y-3">
                 <button type="button" id="dict-check-btn" onclick="Dictation.checkAnswer()" class="btn btn-primary w-full">對答案</button>
+                <button type="button" id="dict-retry-btn" onclick="Dictation.retrySegment()" class="btn btn-secondary w-full hidden">再練一次</button>
                 <button type="button" id="dict-next-btn" onclick="Dictation.nextSegment()" class="btn btn-primary w-full hidden">下一句</button>
             </div>
             <div id="dict-keyboard" class="mt-5"></div>
@@ -615,6 +651,16 @@
             });
             const specialKeysRow = document.createElement('div');
             specialKeysRow.className = 'keyboard-row';
+            const dotBtn = document.createElement('button');
+            dotBtn.type = 'button';
+            dotBtn.className = 'keyboard-key special-key';
+            dotBtn.textContent = '.';
+            dotBtn.onclick = () => handleKeyPress('.');
+            const aposBtn = document.createElement('button');
+            aposBtn.type = 'button';
+            aposBtn.className = 'keyboard-key special-key';
+            aposBtn.textContent = "'";
+            aposBtn.onclick = () => handleKeyPress("'");
             const spaceBtn = document.createElement('button');
             spaceBtn.type = 'button';
             spaceBtn.className = 'keyboard-key special-key flex-4';
@@ -625,6 +671,8 @@
             backspaceBtn.className = 'keyboard-key special-key flex-2';
             backspaceBtn.innerHTML = '&#9003;';
             backspaceBtn.onclick = () => handleKeyPress('backspace');
+            specialKeysRow.appendChild(dotBtn);
+            specialKeysRow.appendChild(aposBtn);
             specialKeysRow.appendChild(spaceBtn);
             specialKeysRow.appendChild(backspaceBtn);
             customKeyboard.appendChild(specialKeysRow);
@@ -651,6 +699,16 @@
             });
             const special = document.createElement('div');
             special.className = 'keyboard-row';
+            const dotBtn = document.createElement('button');
+            dotBtn.type = 'button';
+            dotBtn.className = 'keyboard-key special-key';
+            dotBtn.textContent = '.';
+            dotBtn.onclick = () => Dictation.handleKey('.');
+            const aposBtn = document.createElement('button');
+            aposBtn.type = 'button';
+            aposBtn.className = 'keyboard-key special-key';
+            aposBtn.textContent = "'";
+            aposBtn.onclick = () => Dictation.handleKey("'");
             const spaceBtn = document.createElement('button');
             spaceBtn.type = 'button';
             spaceBtn.className = 'keyboard-key special-key flex-4';
@@ -661,6 +719,8 @@
             backspaceBtn.className = 'keyboard-key special-key flex-2';
             backspaceBtn.innerHTML = '&#9003;';
             backspaceBtn.onclick = () => Dictation.handleKey('backspace');
+            special.appendChild(dotBtn);
+            special.appendChild(aposBtn);
             special.appendChild(spaceBtn);
             special.appendChild(backspaceBtn);
             box.appendChild(special);
@@ -823,6 +883,7 @@
                     else Dictation.checkAnswer();
                     return;
                 }
+                if (e.key === '.' || e.key === "'") { e.preventDefault(); Dictation.handleKey(e.key); return; }
                 if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) Dictation.handleKey(e.key.toLowerCase());
                 return;
             }
@@ -831,6 +892,7 @@
             if (e.key === 'Backspace') { e.preventDefault(); handleKeyPress('backspace'); return; }
             if (e.key === ' ') { e.preventDefault(); handleKeyPress(' '); return; }
             if (e.key === 'Enter') { submitAnswer(); return; }
+            if (e.key === '.') { e.preventDefault(); handleKeyPress('.'); return; }
             if (e.key.length === 1 && /[a-zA-Z\-']/.test(e.key)) handleKeyPress(e.key.toLowerCase());
         });
 

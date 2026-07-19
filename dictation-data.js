@@ -1,12 +1,16 @@
 // 南一版 超群新幹線第三冊｜聽寫練習句子
-// Built from listening-transcripts/lesson-XX.txt by tools/build_dictation_data.py
-// L-3 = 言談理解逐句；縮寫 apostrophe 顯示但不計分（見前端）
+// Built by tools/build_dictation_data.py
+// 預設 L-3／R*-3 逐句；dialogueSegments = 整段對話模式
+// 縮寫 apostrophe 顯示但不計分（見前端）
 const dictationBank = {
   "1-1": {
     "id": "1-1",
-    "lesson": 1,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 1,
     "section": 1,
     "title": "Lesson 1｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "1-1-01",
@@ -33,13 +37,17 @@ const dictationBank = {
         "text": "My sister studies hard every weekend.",
         "speak": "My sister studies hard every weekend."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "1-2": {
     "id": "1-2",
-    "lesson": 1,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 1,
     "section": 2,
     "title": "Lesson 1｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "1-2-01",
@@ -66,13 +74,17 @@ const dictationBank = {
         "text": "My cat passed away this morning.",
         "speak": "My cat passed away this morning."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "1-3": {
     "id": "1-3",
-    "lesson": 1,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 1,
     "section": 3,
     "title": "Lesson 1｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "1-3-01",
@@ -349,13 +361,43 @@ const dictationBank = {
         "text": "What did Sophia do on the show?",
         "speak": "What did Sophia do on the show?"
       }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "1-3-D01",
+        "text": "Mark, did you walk the dog today? No, I didn't. But Miley did. She also cooked dinner. Great. Then, what did you do today? I cleaned the kitchen with Hank. Who cooked dinner?",
+        "speak": "Mark, did you walk the dog today? No, I didn't. But Miley did. She also cooked dinner. Great. Then, what did you do today? I cleaned the kitchen with Hank. Who cooked dinner?"
+      },
+      {
+        "id": "1-3-D02",
+        "text": "John, I didn't see you at the party last night. I was taking care of my sister at home. She didn't feel right. I'm sorry. How is she? She's fine. Thank you. How is John's sister?",
+        "speak": "John, I didn't see you at the party last night. I was taking care of my sister at home. She didn't feel right. I'm sorry. How is she? She's fine. Thank you. How is John's sister?"
+      },
+      {
+        "id": "1-3-D03",
+        "text": "Mom, can I take a day off today? Why? Billy, are you okay? Yes, Mom. But I didn't study for my math test today. What did you do last night? I did my English and math homework. Is that all? Well, I played a few video games. Billy, you can't take a day off. You must go to school. Mom, can I? The bus is coming. Did Billy take a day off?",
+        "speak": "Mom, can I take a day off today? Why? Billy, are you okay? Yes, Mom. But I didn't study for my math test today. What did you do last night? I did my English and math homework. Is that all? Well, I played a few video games. Billy, you can't take a day off. You must go to school. Mom, can I? The bus is coming. Did Billy take a day off?"
+      },
+      {
+        "id": "1-3-D04",
+        "text": "Hi, Joe. This is Wendy. Hello, Wendy. How about swimming today? Today is Friday. Maybe not. I did it last Saturday morning. Then how about basketball? No. I did that last Saturday afternoon. Are you at home all day? Yes. I'm going to study for the test. Okay. Good luck. What sports did Joe do last weekend?",
+        "speak": "Hi, Joe. This is Wendy. Hello, Wendy. How about swimming today? Today is Friday. Maybe not. I did it last Saturday morning. Then how about basketball? No. I did that last Saturday afternoon. Are you at home all day? Yes. I'm going to study for the test. Okay. Good luck. What sports did Joe do last weekend?"
+      },
+      {
+        "id": "1-3-D05",
+        "text": "Did you watch the robot show on TV? Yes, I did. Sophia is awesome. She cooked a big meal. Yeah. Sophia can also do a lot of things. She can dance and paint and also she can… Okay, Alan. Enough about Sophia. What did Sophia do on the show?",
+        "speak": "Did you watch the robot show on TV? Yes, I did. Sophia is awesome. She cooked a big meal. Yeah. Sophia can also do a lot of things. She can dance and paint and also she can… Okay, Alan. Enough about Sophia. What did Sophia do on the show?"
+      }
     ]
   },
   "2-1": {
     "id": "2-1",
-    "lesson": 2,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 2,
     "section": 1,
     "title": "Lesson 2｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "2-1-01",
@@ -382,13 +424,17 @@ const dictationBank = {
         "text": "John was scared last night because he watched a ghost movie on TV.",
         "speak": "John was scared last night because he watched a ghost movie on TV."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "2-2": {
     "id": "2-2",
-    "lesson": 2,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 2,
     "section": 2,
     "title": "Lesson 2｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "2-2-01",
@@ -415,13 +461,17 @@ const dictationBank = {
         "text": "What did you have for breakfast this morning?",
         "speak": "What did you have for breakfast this morning?"
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "2-3": {
     "id": "2-3",
-    "lesson": 2,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 2,
     "section": 3,
     "title": "Lesson 2｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "2-3-01",
@@ -533,13 +583,43 @@ const dictationBank = {
         "text": "What time did Emma have math class?",
         "speak": "What time did Emma have math class?"
       }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "2-3-D01",
+        "text": "Did you go to the basketball game with Susan yesterday? I'd have liked to, but I needed to study for the test. Did the boy go to the basketball game yesterday?",
+        "speak": "Did you go to the basketball game with Susan yesterday? I'd have liked to, but I needed to study for the test. Did the boy go to the basketball game yesterday?"
+      },
+      {
+        "id": "2-3-D02",
+        "text": "I can't go to the movies with you and Jenny this afternoon. Why not? My mom just called me. She has to work, so I need to cook dinner for my sisters. Which is true about the girl's mom?",
+        "speak": "I can't go to the movies with you and Jenny this afternoon. Why not? My mom just called me. She has to work, so I need to cook dinner for my sisters. Which is true about the girl's mom?"
+      },
+      {
+        "id": "2-3-D03",
+        "text": "Mia, why is Tim crying? Did his brother hit him? No, his cat ran away last night and he couldn't find it. Oh, that's too bad. Why is Tim crying?",
+        "speak": "Mia, why is Tim crying? Did his brother hit him? No, his cat ran away last night and he couldn't find it. Oh, that's too bad. Why is Tim crying?"
+      },
+      {
+        "id": "2-3-D04",
+        "text": "Dad bought a beautiful dress for mom today. Why? Today was mom's birthday, and I made a cake for mom. Oh no, I didn't buy anything for her. What did their dad do today?",
+        "speak": "Dad bought a beautiful dress for mom today. Why? Today was mom's birthday, and I made a cake for mom. Oh no, I didn't buy anything for her. What did their dad do today?"
+      },
+      {
+        "id": "2-3-D05",
+        "text": "Emma had English class at 8.30 this morning. Then, she had math class at 9.25. Before she had her favorite class, she had art class, But she doesn't like art class because she is not good at drawing. What time did Emma have math class?",
+        "speak": "Emma had English class at 8.30 this morning. Then, she had math class at 9.25. Before she had her favorite class, she had art class, But she doesn't like art class because she is not good at drawing. What time did Emma have math class?"
+      }
     ]
   },
   "3-1": {
     "id": "3-1",
-    "lesson": 3,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 3,
     "section": 1,
     "title": "Lesson 3｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "3-1-01",
@@ -566,13 +646,17 @@ const dictationBank = {
         "text": "When the woman arrived at the party, everyone was surprised.",
         "speak": "When the woman arrived at the party, everyone was surprised."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "3-2": {
     "id": "3-2",
-    "lesson": 3,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 3,
     "section": 2,
     "title": "Lesson 3｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "3-2-01",
@@ -599,13 +683,17 @@ const dictationBank = {
         "text": "Helen was tired, but she was still trying.",
         "speak": "Helen was tired, but she was still trying."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "3-3": {
     "id": "3-3",
-    "lesson": 3,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 3,
     "section": 3,
     "title": "Lesson 3｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "3-3-01",
@@ -757,13 +845,43 @@ const dictationBank = {
         "text": "What are the girl and the boy talking about?",
         "speak": "What are the girl and the boy talking about?"
       }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "3-3-D01",
+        "text": "。 What are you looking for? Mom, I'm looking for my cell phone. I was talking on it with Jack before lunch, but I can't find it now. Did you check your bedroom? Maybe you put it there. What do we know about the boy's cell phone?",
+        "speak": "。 What are you looking for? Mom, I'm looking for my cell phone. I was talking on it with Jack before lunch, but I can't find it now. Did you check your bedroom? Maybe you put it there. What do we know about the boy's cell phone?"
+      },
+      {
+        "id": "3-3-D02",
+        "text": "What were your brothers doing at nine this morning? They were singing and dancing in the garden. How about you? I was feeding fish and hens there. What did the girl do this morning?",
+        "speak": "What were your brothers doing at nine this morning? They were singing and dancing in the garden. How about you? I was feeding fish and hens there. What did the girl do this morning?"
+      },
+      {
+        "id": "3-3-D03",
+        "text": "You have a new message. Hey, Peter. It's me, Jason. This Saturday night is Jimmy's birthday party. Let's celebrate for him at his house. Please bring some drinks. See you then. Who is the party for?",
+        "speak": "You have a new message. Hey, Peter. It's me, Jason. This Saturday night is Jimmy's birthday party. Let's celebrate for him at his house. Please bring some drinks. See you then. Who is the party for?"
+      },
+      {
+        "id": "3-3-D04",
+        "text": "For. It was hot last Saturday, so I went swimming with my friends. After that, we had lunch in our favorite restaurant. We talked about something fun during our lunch time. To enjoy the nice weather, we planned to go hiking the next day. We had a good time last weekend. What did the boy and his friends do last Saturday?",
+        "speak": "For. It was hot last Saturday, so I went swimming with my friends. After that, we had lunch in our favorite restaurant. We talked about something fun during our lunch time. To enjoy the nice weather, we planned to go hiking the next day. We had a good time last weekend. What did the boy and his friends do last Saturday?"
+      },
+      {
+        "id": "3-3-D05",
+        "text": "Watch out there is a big hole over there. Thank you Tom. We almost fell into it You know after rain the road is wet and full of mud so sometimes we can't see holes Yeah, we need to keep an eye on the road when biking on rainy days What are the girl and the boy talking about?",
+        "speak": "Watch out there is a big hole over there. Thank you Tom. We almost fell into it You know after rain the road is wet and full of mud so sometimes we can't see holes Yeah, we need to keep an eye on the road when biking on rainy days What are the girl and the boy talking about?"
+      }
     ]
   },
   "4-1": {
     "id": "4-1",
-    "lesson": 4,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 4,
     "section": 1,
     "title": "Lesson 4｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "4-1-01",
@@ -790,13 +908,17 @@ const dictationBank = {
         "text": "The girl made friends from many different countries.",
         "speak": "The girl made friends from many different countries."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "4-2": {
     "id": "4-2",
-    "lesson": 4,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 4,
     "section": 2,
     "title": "Lesson 4｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "4-2-01",
@@ -823,13 +945,17 @@ const dictationBank = {
         "text": "Does Nancy like to take photos?",
         "speak": "Does Nancy like to take photos?"
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "4-3": {
     "id": "4-3",
-    "lesson": 4,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 4,
     "section": 3,
     "title": "Lesson 4｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "4-3-01",
@@ -1066,13 +1192,43 @@ const dictationBank = {
         "text": "What do we know about Tina?",
         "speak": "What do we know about Tina?"
       }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "4-3-D01",
+        "text": "Amy, your English is so good. How did you do it? I lived in Australia for two years. How cool! I want to speak English like you. What should I do? Um, practice English with your English teacher every day. Oh, give me a break. What does the boy mean?",
+        "speak": "Amy, your English is so good. How did you do it? I lived in Australia for two years. How cool! I want to speak English like you. What should I do? Um, practice English with your English teacher every day. Oh, give me a break. What does the boy mean?"
+      },
+      {
+        "id": "4-3-D02",
+        "text": "Hi. What can I do for you? Hi. I'm looking for a job. What kind of job are you looking for? I don't like being outside for a long time, so maybe working inside a place is good. So picking up apples on the farm may not be right for you. How about working in a restaurant? Do you have a job as a worker in a factory? I did it in Japan before. Okay. There's one. Thanks a lot. What job may the woman get?",
+        "speak": "Hi. What can I do for you? Hi. I'm looking for a job. What kind of job are you looking for? I don't like being outside for a long time, so maybe working inside a place is good. So picking up apples on the farm may not be right for you. How about working in a restaurant? Do you have a job as a worker in a factory? I did it in Japan before. Okay. There's one. Thanks a lot. What job may the woman get?"
+      },
+      {
+        "id": "4-3-D03",
+        "text": "Good day, Jimmy. Helen? Long time no see. What are you up to these days? I took a working holiday in Japan. Wow! Cool! I want to travel and work in a different country for some time, too. Then, why not make a plan and prepare for it from now on? Go for it! What does the man want to do?",
+        "speak": "Good day, Jimmy. Helen? Long time no see. What are you up to these days? I took a working holiday in Japan. Wow! Cool! I want to travel and work in a different country for some time, too. Then, why not make a plan and prepare for it from now on? Go for it! What does the man want to do?"
+      },
+      {
+        "id": "4-3-D04",
+        "text": "Johnson began working as a tour guide at age 22. He worked in another country once a month. He was happy because he could visit a different country and work at the same time. He enjoyed his life. Now he is 24 and wants to start a new job as a travel reporter. What do we know about Johnson?",
+        "speak": "Johnson began working as a tour guide at age 22. He worked in another country once a month. He was happy because he could visit a different country and work at the same time. He enjoyed his life. Now he is 24 and wants to start a new job as a travel reporter. What do we know about Johnson?"
+      },
+      {
+        "id": "4-3-D05",
+        "text": "Tina opened a hotel near a famous beach. She and her family enjoy going surfing and sailing on the weekend. Sometimes they go swimming with people in their hotel. Many people like their hotel. Tina's friend, Sandy, goes there twice a month. She always has a good time there. What do we know about Tina?",
+        "speak": "Tina opened a hotel near a famous beach. She and her family enjoy going surfing and sailing on the weekend. Sometimes they go swimming with people in their hotel. Many people like their hotel. Tina's friend, Sandy, goes there twice a month. She always has a good time there. What do we know about Tina?"
+      }
     ]
   },
   "5-1": {
     "id": "5-1",
-    "lesson": 5,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 5,
     "section": 1,
     "title": "Lesson 5｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "5-1-01",
@@ -1099,13 +1255,17 @@ const dictationBank = {
         "text": "I have to go to the restroom.",
         "speak": "I have to go to the restroom."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "5-2": {
     "id": "5-2",
-    "lesson": 5,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 5,
     "section": 2,
     "title": "Lesson 5｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "5-2-01",
@@ -1132,13 +1292,17 @@ const dictationBank = {
         "text": "How long does it take to get to your school by bus?",
         "speak": "How long does it take to get to your school by bus?"
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "5-3": {
     "id": "5-3",
-    "lesson": 5,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 5,
     "section": 3,
     "title": "Lesson 5｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "5-3-01",
@@ -1375,13 +1539,43 @@ const dictationBank = {
         "text": "What are the boy and the girl doing?",
         "speak": "What are the boy and the girl doing?"
       }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "5-3-D01",
+        "text": "Hi, this is Go Taiwan. I'm Joe. What brought you to Taiwan? Beautiful scenery. Anything else? Delicious food and friendly people. Thank you. Have fun in Taiwan. Who might the woman be?",
+        "speak": "Hi, this is Go Taiwan. I'm Joe. What brought you to Taiwan? Beautiful scenery. Anything else? Delicious food and friendly people. Thank you. Have fun in Taiwan. Who might the woman be?"
+      },
+      {
+        "id": "5-3-D02",
+        "text": "Hello? Michelle? Where are you? I'm in Wonder Island. Oh! What's special about that place? Well, there are buses taking you everywhere, and it only takes a few minutes to buy almost anything in the stores. I really love it here. How's Wonder Island?",
+        "speak": "Hello? Michelle? Where are you? I'm in Wonder Island. Oh! What's special about that place? Well, there are buses taking you everywhere, and it only takes a few minutes to buy almost anything in the stores. I really love it here. How's Wonder Island?"
+      },
+      {
+        "id": "5-3-D03",
+        "text": "How's Wonder Island? I got a big package this morning. Oh! Who sent the package? My brother sent it from Japan. What's inside? A t-shirt, some snacks, and a book. That's so nice! Yes. I love this package. It's special to me. What does the man mean?",
+        "speak": "How's Wonder Island? I got a big package this morning. Oh! Who sent the package? My brother sent it from Japan. What's inside? A t-shirt, some snacks, and a book. That's so nice! Yes. I love this package. It's special to me. What does the man mean?"
+      },
+      {
+        "id": "5-3-D04",
+        "text": "What time is the next train? It arrives at 10.30. Alright. Take one ticket to Taichung, please. No problem. That's $750 NT dollars. Where is the man?",
+        "speak": "What time is the next train? It arrives at 10.30. Alright. Take one ticket to Taichung, please. No problem. That's $750 NT dollars. Where is the man?"
+      },
+      {
+        "id": "5-3-D05",
+        "text": "Okay. I have everything. Wait! I want to buy a tea egg. Well, do you want some snacks, too? Nope. A cup of iced coffee is fine. Okay. Let's go. What are the boy and the girl doing?",
+        "speak": "Okay. I have everything. Wait! I want to buy a tea egg. Well, do you want some snacks, too? Nope. A cup of iced coffee is fine. Okay. Let's go. What are the boy and the girl doing?"
+      }
     ]
   },
   "6-1": {
     "id": "6-1",
-    "lesson": 6,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 6,
     "section": 1,
     "title": "Lesson 6｜辨識句意",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "6-1-01",
@@ -1408,13 +1602,17 @@ const dictationBank = {
         "text": "Jane plays the guitar very well.",
         "speak": "Jane plays the guitar very well."
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "6-2": {
     "id": "6-2",
-    "lesson": 6,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 6,
     "section": 2,
     "title": "Lesson 6｜基本問答",
+    "hasDialogueMode": false,
     "segments": [
       {
         "id": "6-2-01",
@@ -1441,13 +1639,17 @@ const dictationBank = {
         "text": "Who will go to the potluck with you?",
         "speak": "Who will go to the potluck with you?"
       }
-    ]
+    ],
+    "dialogueSegments": []
   },
   "6-3": {
     "id": "6-3",
-    "lesson": 6,
+    "group": "lesson",
+    "sortGroup": 0,
+    "sortUnit": 6,
     "section": 3,
     "title": "Lesson 6｜言談理解",
+    "hasDialogueMode": true,
     "segments": [
       {
         "id": "6-3-01",
@@ -1693,6 +1895,1054 @@ const dictationBank = {
         "id": "6-3-49",
         "text": "What do you know about the boy and his mom?",
         "speak": "What do you know about the boy and his mom?"
+      }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "6-3-D01",
+        "text": "Today is your birthday. You can choose your gift in this shop and it's on me. Really? Wow, thank you. I want this pink dress and that pink bag. No problem. Wait. Oh no. I can't find my bag. Maybe you forgot to bring it. Don't worry. I have some money. Who spent the money on the birthday gifts?",
+        "speak": "Today is your birthday. You can choose your gift in this shop and it's on me. Really? Wow, thank you. I want this pink dress and that pink bag. No problem. Wait. Oh no. I can't find my bag. Maybe you forgot to bring it. Don't worry. I have some money. Who spent the money on the birthday gifts?"
+      },
+      {
+        "id": "6-3-D02",
+        "text": "Hello. May I help you? Sure. I'm looking for an apartment with three rooms. What else do you want for your dream apartment? I have two cats and I like cooking. Well, we have one at a low price. You'll love the kitchen. What do we know about the man and the woman?",
+        "speak": "Hello. May I help you? Sure. I'm looking for an apartment with three rooms. What else do you want for your dream apartment? I have two cats and I like cooking. Well, we have one at a low price. You'll love the kitchen. What do we know about the man and the woman?"
+      },
+      {
+        "id": "6-3-D03",
+        "text": "Where's Eric? He went to the movies. Did he go with his brother? No, he went by himself. What do we know about Eric?",
+        "speak": "Where's Eric? He went to the movies. Did he go with his brother? No, he went by himself. What do we know about Eric?"
+      },
+      {
+        "id": "6-3-D04",
+        "text": "Why did you end up with so many things? Didn't you just want to buy a pair of shoes? I did, but there was a big sale today. Buy two pairs and get one shopping bag for free. But here are two shopping bags. I think you'll need one too. How many shoes did the woman buy?",
+        "speak": "Why did you end up with so many things? Didn't you just want to buy a pair of shoes? I did, but there was a big sale today. Buy two pairs and get one shopping bag for free. But here are two shopping bags. I think you'll need one too. How many shoes did the woman buy?"
+      },
+      {
+        "id": "6-3-D05",
+        "text": "What do you know about the boy and his mom? Oh no, it's already 7.15. I'll be late. Where are my glasses? Mom, did you see my glasses? They were on the table in the living room. And where is my homework? Did you see my school bag? Need a school bag? Are you going to school today? Mom, be serious. Oh, wait! It's 7.20! But it's Saturday, honey! What do you know about the boy and his mom?",
+        "speak": "What do you know about the boy and his mom? Oh no, it's already 7.15. I'll be late. Where are my glasses? Mom, did you see my glasses? They were on the table in the living room. And where is my homework? Did you see my school bag? Need a school bag? Are you going to school today? Mom, be serious. Oh, wait! It's 7.20! But it's Saturday, honey! What do you know about the boy and his mom?"
+      }
+    ]
+  },
+  "R1-1": {
+    "id": "R1-1",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 1,
+    "section": 1,
+    "title": "Review 1｜辨識句意",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R1-1-01",
+        "text": "Last weekend, Mom and I cleaned the kitchen.",
+        "speak": "Last weekend, Mom and I cleaned the kitchen."
+      },
+      {
+        "id": "R1-1-02",
+        "text": "They chatted with each other on the bus after school.",
+        "speak": "They chatted with each other on the bus after school."
+      },
+      {
+        "id": "R1-1-03",
+        "text": "My family visited our grandparents this summer.",
+        "speak": "My family visited our grandparents this summer."
+      },
+      {
+        "id": "R1-1-04",
+        "text": "John didn't go to school because he was sick.",
+        "speak": "John didn't go to school because he was sick."
+      },
+      {
+        "id": "R1-1-05",
+        "text": "Nancy didn't buy the phone because she didn't have enough money.",
+        "speak": "Nancy didn't buy the phone because she didn't have enough money."
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R1-2": {
+    "id": "R1-2",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 1,
+    "section": 2,
+    "title": "Review 1｜基本問答",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R1-2-01",
+        "text": "Why were you so angry this morning?",
+        "speak": "Why were you so angry this morning?"
+      },
+      {
+        "id": "R1-2-02",
+        "text": "What did you do this weekend?",
+        "speak": "What did you do this weekend?"
+      },
+      {
+        "id": "R1-2-03",
+        "text": "What did you have for breakfast?",
+        "speak": "What did you have for breakfast?"
+      },
+      {
+        "id": "R1-2-04",
+        "text": "Why weren't you at home yesterday?",
+        "speak": "Why weren't you at home yesterday?"
+      },
+      {
+        "id": "R1-2-05",
+        "text": "Maybe we can visit the art museum this week.",
+        "speak": "Maybe we can visit the art museum this week."
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R1-3": {
+    "id": "R1-3",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 1,
+    "section": 3,
+    "title": "Review 1｜言談理解",
+    "hasDialogueMode": true,
+    "segments": [
+      {
+        "id": "R1-3-01",
+        "text": "One.",
+        "speak": "One."
+      },
+      {
+        "id": "R1-3-02",
+        "text": "My family went to Alishan three days ago.",
+        "speak": "My family went to Alishan three days ago."
+      },
+      {
+        "id": "R1-3-03",
+        "text": "How was the trip?",
+        "speak": "How was the trip?"
+      },
+      {
+        "id": "R1-3-04",
+        "text": "Great!",
+        "speak": "Great!"
+      },
+      {
+        "id": "R1-3-05",
+        "text": "I love the tall trees and beautiful lake.",
+        "speak": "I love the tall trees and beautiful lake."
+      },
+      {
+        "id": "R1-3-06",
+        "text": "How was the weather?",
+        "speak": "How was the weather?"
+      },
+      {
+        "id": "R1-3-07",
+        "text": "It was cool.",
+        "speak": "It was cool."
+      },
+      {
+        "id": "R1-3-08",
+        "text": "April is a great time to visit there.",
+        "speak": "April is a great time to visit there."
+      },
+      {
+        "id": "R1-3-09",
+        "text": "When did the girl go to Alishan?",
+        "speak": "When did the girl go to Alishan?"
+      },
+      {
+        "id": "R1-3-10",
+        "text": "Did you play basketball with Jack yesterday morning?",
+        "speak": "Did you play basketball with Jack yesterday morning?"
+      },
+      {
+        "id": "R1-3-11",
+        "text": "No.",
+        "speak": "No."
+      },
+      {
+        "id": "R1-3-12",
+        "text": "I was at Uncle Bill's house.",
+        "speak": "I was at Uncle Bill's house."
+      },
+      {
+        "id": "R1-3-13",
+        "text": "He helped me with my math homework.",
+        "speak": "He helped me with my math homework."
+      },
+      {
+        "id": "R1-3-14",
+        "text": "What did the boy do yesterday morning?",
+        "speak": "What did the boy do yesterday morning?"
+      },
+      {
+        "id": "R1-3-15",
+        "text": "What did you do last Sunday?",
+        "speak": "What did you do last Sunday?"
+      },
+      {
+        "id": "R1-3-16",
+        "text": "I went to Taidong with my classmates.",
+        "speak": "I went to Taidong with my classmates."
+      },
+      {
+        "id": "R1-3-17",
+        "text": "Did you buy anything when you were there?",
+        "speak": "Did you buy anything when you were there?"
+      },
+      {
+        "id": "R1-3-18",
+        "text": "Sure.",
+        "speak": "Sure."
+      },
+      {
+        "id": "R1-3-19",
+        "text": "I bought a special pair of shoes.",
+        "speak": "I bought a special pair of shoes."
+      },
+      {
+        "id": "R1-3-20",
+        "text": "Take a look.",
+        "speak": "Take a look."
+      },
+      {
+        "id": "R1-3-21",
+        "text": "Here they are.",
+        "speak": "Here they are."
+      },
+      {
+        "id": "R1-3-22",
+        "text": "Cool.",
+        "speak": "Cool."
+      },
+      {
+        "id": "R1-3-23",
+        "text": "They are special.",
+        "speak": "They are special."
+      },
+      {
+        "id": "R1-3-24",
+        "text": "What did the boy buy in Taidong?",
+        "speak": "What did the boy buy in Taidong?"
+      },
+      {
+        "id": "R1-3-25",
+        "text": "Good afternoon.",
+        "speak": "Good afternoon."
+      },
+      {
+        "id": "R1-3-26",
+        "text": "May I help you?",
+        "speak": "May I help you?"
+      },
+      {
+        "id": "R1-3-27",
+        "text": "Yes.",
+        "speak": "Yes."
+      },
+      {
+        "id": "R1-3-28",
+        "text": "Mother's Day is coming.",
+        "speak": "Mother's Day is coming."
+      },
+      {
+        "id": "R1-3-29",
+        "text": "I need to buy a gift for my mom.",
+        "speak": "I need to buy a gift for my mom."
+      },
+      {
+        "id": "R1-3-30",
+        "text": "How about a bag?",
+        "speak": "How about a bag?"
+      },
+      {
+        "id": "R1-3-31",
+        "text": "Wow!",
+        "speak": "Wow!"
+      },
+      {
+        "id": "R1-3-32",
+        "text": "It's beautiful!",
+        "speak": "It's beautiful!"
+      },
+      {
+        "id": "R1-3-33",
+        "text": "That's it!",
+        "speak": "That's it!"
+      },
+      {
+        "id": "R1-3-34",
+        "text": "Why did the girl need to buy a gift?",
+        "speak": "Why did the girl need to buy a gift?"
+      },
+      {
+        "id": "R1-3-35",
+        "text": "Mark got up at 8.30 this morning.",
+        "speak": "Mark got up at 8.30 this morning."
+      },
+      {
+        "id": "R1-3-36",
+        "text": "It was very late, so he jumped out of bed and cried out to his dad.",
+        "speak": "It was very late, so he jumped out of bed and cried out to his dad."
+      },
+      {
+        "id": "R1-3-37",
+        "text": "Dad!",
+        "speak": "Dad!"
+      },
+      {
+        "id": "R1-3-38",
+        "text": "Dad!",
+        "speak": "Dad!"
+      },
+      {
+        "id": "R1-3-39",
+        "text": "Please take me to school.",
+        "speak": "Please take me to school."
+      },
+      {
+        "id": "R1-3-40",
+        "text": "I'm late for school!\" His dad asked him.",
+        "speak": "I'm late for school!\" His dad asked him."
+      },
+      {
+        "id": "R1-3-41",
+        "text": "Mark!",
+        "speak": "Mark!"
+      },
+      {
+        "id": "R1-3-42",
+        "text": "Why do you have class on Sunday?",
+        "speak": "Why do you have class on Sunday?"
+      },
+      {
+        "id": "R1-3-43",
+        "text": "Does Mark need to go to school today?",
+        "speak": "Does Mark need to go to school today?"
+      }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "R1-3-D01",
+        "text": "One. My family went to Alishan three days ago. How was the trip? Great! I love the tall trees and beautiful lake. How was the weather? It was cool. April is a great time to visit there. When did the girl go to Alishan?",
+        "speak": "One. My family went to Alishan three days ago. How was the trip? Great! I love the tall trees and beautiful lake. How was the weather? It was cool. April is a great time to visit there. When did the girl go to Alishan?"
+      },
+      {
+        "id": "R1-3-D02",
+        "text": "Did you play basketball with Jack yesterday morning? No. I was at Uncle Bill's house. He helped me with my math homework. What did the boy do yesterday morning?",
+        "speak": "Did you play basketball with Jack yesterday morning? No. I was at Uncle Bill's house. He helped me with my math homework. What did the boy do yesterday morning?"
+      },
+      {
+        "id": "R1-3-D03",
+        "text": "What did you do last Sunday? I went to Taidong with my classmates. Did you buy anything when you were there? Sure. I bought a special pair of shoes. Take a look. Here they are. Cool. They are special. What did the boy buy in Taidong?",
+        "speak": "What did you do last Sunday? I went to Taidong with my classmates. Did you buy anything when you were there? Sure. I bought a special pair of shoes. Take a look. Here they are. Cool. They are special. What did the boy buy in Taidong?"
+      },
+      {
+        "id": "R1-3-D04",
+        "text": "Good afternoon. May I help you? Yes. Mother's Day is coming. I need to buy a gift for my mom. How about a bag? Wow! It's beautiful! That's it! Why did the girl need to buy a gift?",
+        "speak": "Good afternoon. May I help you? Yes. Mother's Day is coming. I need to buy a gift for my mom. How about a bag? Wow! It's beautiful! That's it! Why did the girl need to buy a gift?"
+      },
+      {
+        "id": "R1-3-D05",
+        "text": "Mark got up at 8.30 this morning. It was very late, so he jumped out of bed and cried out to his dad. Dad! Dad! Please take me to school. I'm late for school!\" His dad asked him. Mark! Why do you have class on Sunday? Does Mark need to go to school today?",
+        "speak": "Mark got up at 8.30 this morning. It was very late, so he jumped out of bed and cried out to his dad. Dad! Dad! Please take me to school. I'm late for school!\" His dad asked him. Mark! Why do you have class on Sunday? Does Mark need to go to school today?"
+      }
+    ]
+  },
+  "R2-1": {
+    "id": "R2-1",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 2,
+    "section": 1,
+    "title": "Review 2｜辨識句意",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R2-1-01",
+        "text": "It suddenly rained when the man was jogging.",
+        "speak": "It suddenly rained when the man was jogging."
+      },
+      {
+        "id": "R2-1-02",
+        "text": "The woman used her cell phone after she ate her lunch.",
+        "speak": "The woman used her cell phone after she ate her lunch."
+      },
+      {
+        "id": "R2-1-03",
+        "text": "The boy wants to go surfing, but it is difficult for him.",
+        "speak": "The boy wants to go surfing, but it is difficult for him."
+      },
+      {
+        "id": "R2-1-04",
+        "text": "The man is a fisherman, not a book salesman.",
+        "speak": "The man is a fisherman, not a book salesman."
+      },
+      {
+        "id": "R2-1-05",
+        "text": "I saw a frog at the bottom of the hole.",
+        "speak": "I saw a frog at the bottom of the hole."
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R2-2": {
+    "id": "R2-2",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 2,
+    "section": 2,
+    "title": "Review 2｜基本問答",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R2-2-01",
+        "text": "What do you plan to do this summer?",
+        "speak": "What do you plan to do this summer?"
+      },
+      {
+        "id": "R2-2-02",
+        "text": "The panda there looks so cute!",
+        "speak": "The panda there looks so cute!"
+      },
+      {
+        "id": "R2-2-03",
+        "text": "What was Tina doing when you called her last night?",
+        "speak": "What was Tina doing when you called her last night?"
+      },
+      {
+        "id": "R2-2-04",
+        "text": "When I took out my lunch, a monkey ran and took it away?",
+        "speak": "When I took out my lunch, a monkey ran and took it away?"
+      },
+      {
+        "id": "R2-2-05",
+        "text": "What kind of water sport do you like?",
+        "speak": "What kind of water sport do you like?"
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R2-3": {
+    "id": "R2-3",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 2,
+    "section": 3,
+    "title": "Review 2｜言談理解",
+    "hasDialogueMode": true,
+    "segments": [
+      {
+        "id": "R2-3-01",
+        "text": "Why didn't you hand in your homework this morning?",
+        "speak": "Why didn't you hand in your homework this morning?"
+      },
+      {
+        "id": "R2-3-02",
+        "text": "Sorry, Miss Lu.",
+        "speak": "Sorry, Miss Lu."
+      },
+      {
+        "id": "R2-3-03",
+        "text": "My dog ate it up.",
+        "speak": "My dog ate it up."
+      },
+      {
+        "id": "R2-3-04",
+        "text": "What?",
+        "speak": "What?"
+      },
+      {
+        "id": "R2-3-05",
+        "text": "Again?",
+        "speak": "Again?"
+      },
+      {
+        "id": "R2-3-06",
+        "text": "Yeah.",
+        "speak": "Yeah."
+      },
+      {
+        "id": "R2-3-07",
+        "text": "When I took out my homework, my dog ran and ate it up.",
+        "speak": "When I took out my homework, my dog ran and ate it up."
+      },
+      {
+        "id": "R2-3-08",
+        "text": "Maybe you need to finish your homework at school every day.",
+        "speak": "Maybe you need to finish your homework at school every day."
+      },
+      {
+        "id": "R2-3-09",
+        "text": "Alright, Miss Lu.",
+        "speak": "Alright, Miss Lu."
+      },
+      {
+        "id": "R2-3-10",
+        "text": "What do we know from their talk?",
+        "speak": "What do we know from their talk?"
+      },
+      {
+        "id": "R2-3-11",
+        "text": "Two Jason, where did you go last Saturday?",
+        "speak": "Two Jason, where did you go last Saturday?"
+      },
+      {
+        "id": "R2-3-12",
+        "text": "My family and I went camping on the beach.",
+        "speak": "My family and I went camping on the beach."
+      },
+      {
+        "id": "R2-3-13",
+        "text": "Wow, you had a lot of fun there, didn't you?",
+        "speak": "Wow, you had a lot of fun there, didn't you?"
+      },
+      {
+        "id": "R2-3-14",
+        "text": "Sure.",
+        "speak": "Sure."
+      },
+      {
+        "id": "R2-3-15",
+        "text": "We went surfing in the morning and later went sailing.",
+        "speak": "We went surfing in the morning and later went sailing."
+      },
+      {
+        "id": "R2-3-16",
+        "text": "Oh, we also watched the sunset on the beach.",
+        "speak": "Oh, we also watched the sunset on the beach."
+      },
+      {
+        "id": "R2-3-17",
+        "text": "The wind, the warm water and the family.",
+        "speak": "The wind, the warm water and the family."
+      },
+      {
+        "id": "R2-3-18",
+        "text": "How wonderful!",
+        "speak": "How wonderful!"
+      },
+      {
+        "id": "R2-3-19",
+        "text": "Then what did you do at night?",
+        "speak": "Then what did you do at night?"
+      },
+      {
+        "id": "R2-3-20",
+        "text": "We sat in a circle, chatted, and laughed.",
+        "speak": "We sat in a circle, chatted, and laughed."
+      },
+      {
+        "id": "R2-3-21",
+        "text": "What do we know about the man?",
+        "speak": "What do we know about the man?"
+      },
+      {
+        "id": "R2-3-22",
+        "text": "What kind of job did you do before you became a reporter?",
+        "speak": "What kind of job did you do before you became a reporter?"
+      },
+      {
+        "id": "R2-3-23",
+        "text": "I worked as a waitress from age 18 to 20.",
+        "speak": "I worked as a waitress from age 18 to 20."
+      },
+      {
+        "id": "R2-3-24",
+        "text": "I learned a lot at the restaurant.",
+        "speak": "I learned a lot at the restaurant."
+      },
+      {
+        "id": "R2-3-25",
+        "text": "What else did you do?",
+        "speak": "What else did you do?"
+      },
+      {
+        "id": "R2-3-26",
+        "text": "After working at a restaurant, I took a working holiday in Japan for one year.",
+        "speak": "After working at a restaurant, I took a working holiday in Japan for one year."
+      },
+      {
+        "id": "R2-3-27",
+        "text": "I was a fruit farm worker there.",
+        "speak": "I was a fruit farm worker there."
+      },
+      {
+        "id": "R2-3-28",
+        "text": "Later, I came back to Taiwan.",
+        "speak": "Later, I came back to Taiwan."
+      },
+      {
+        "id": "R2-3-29",
+        "text": "Now I love my job as a reporter.",
+        "speak": "Now I love my job as a reporter."
+      },
+      {
+        "id": "R2-3-30",
+        "text": "I like to share my story with the readers.",
+        "speak": "I like to share my story with the readers."
+      },
+      {
+        "id": "R2-3-31",
+        "text": "Do you want to do anything else?",
+        "speak": "Do you want to do anything else?"
+      },
+      {
+        "id": "R2-3-32",
+        "text": "Maybe a tour guide in five years.",
+        "speak": "Maybe a tour guide in five years."
+      },
+      {
+        "id": "R2-3-33",
+        "text": "I love visiting different countries and working at the same time.",
+        "speak": "I love visiting different countries and working at the same time."
+      },
+      {
+        "id": "R2-3-34",
+        "text": "What do we know about the woman?",
+        "speak": "What do we know about the woman?"
+      },
+      {
+        "id": "R2-3-35",
+        "text": "What do we know about the woman?",
+        "speak": "What do we know about the woman?"
+      },
+      {
+        "id": "R2-3-36",
+        "text": "What do you usually do with your cell phone?",
+        "speak": "What do you usually do with your cell phone?"
+      },
+      {
+        "id": "R2-3-37",
+        "text": "I listen to music, watch movies, and sometimes play games.",
+        "speak": "I listen to music, watch movies, and sometimes play games."
+      },
+      {
+        "id": "R2-3-38",
+        "text": "Is that all?",
+        "speak": "Is that all?"
+      },
+      {
+        "id": "R2-3-39",
+        "text": "But I often see you type words fast on it.",
+        "speak": "But I often see you type words fast on it."
+      },
+      {
+        "id": "R2-3-40",
+        "text": "Oh, you're right!",
+        "speak": "Oh, you're right!"
+      },
+      {
+        "id": "R2-3-41",
+        "text": "I type some messages to my friends from different countries.",
+        "speak": "I type some messages to my friends from different countries."
+      },
+      {
+        "id": "R2-3-42",
+        "text": "They usually say hello to me and share something fun with me.",
+        "speak": "They usually say hello to me and share something fun with me."
+      },
+      {
+        "id": "R2-3-43",
+        "text": "Cool!",
+        "speak": "Cool!"
+      },
+      {
+        "id": "R2-3-44",
+        "text": "I'm surprised.",
+        "speak": "I'm surprised."
+      },
+      {
+        "id": "R2-3-45",
+        "text": "You have friends around the world.",
+        "speak": "You have friends around the world."
+      },
+      {
+        "id": "R2-3-46",
+        "text": "You bet!",
+        "speak": "You bet!"
+      },
+      {
+        "id": "R2-3-47",
+        "text": "You can do it on the cell phone, too!",
+        "speak": "You can do it on the cell phone, too!"
+      },
+      {
+        "id": "R2-3-48",
+        "text": "Why is the boy surprised?",
+        "speak": "Why is the boy surprised?"
+      },
+      {
+        "id": "R2-3-49",
+        "text": "Yesterday was the Lion King's birthday.",
+        "speak": "Yesterday was the Lion King's birthday."
+      },
+      {
+        "id": "R2-3-50",
+        "text": "Many animals came and gave him a gift.",
+        "speak": "Many animals came and gave him a gift."
+      },
+      {
+        "id": "R2-3-51",
+        "text": "He was happy, and he invited them to a game.",
+        "speak": "He was happy, and he invited them to a game."
+      },
+      {
+        "id": "R2-3-52",
+        "text": "I put a golden pin somewhere in the forest.",
+        "speak": "I put a golden pin somewhere in the forest."
+      },
+      {
+        "id": "R2-3-53",
+        "text": "Find it and you can take it home,\" the king said.",
+        "speak": "Find it and you can take it home,\" the king said."
+      },
+      {
+        "id": "R2-3-54",
+        "text": "The animals tried, but soon gave up.",
+        "speak": "The animals tried, but soon gave up."
+      },
+      {
+        "id": "R2-3-55",
+        "text": "The pin is small, the forest is big, no one can find it,\" said the animals.",
+        "speak": "The pin is small, the forest is big, no one can find it,\" said the animals."
+      },
+      {
+        "id": "R2-3-56",
+        "text": "Only Sandy the spider kept looking for it.",
+        "speak": "Only Sandy the spider kept looking for it."
+      },
+      {
+        "id": "R2-3-57",
+        "text": "Finally she found the pin and took it home with joy.",
+        "speak": "Finally she found the pin and took it home with joy."
+      },
+      {
+        "id": "R2-3-58",
+        "text": "What do we know about the pin?",
+        "speak": "What do we know about the pin?"
+      }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "R2-3-D01",
+        "text": "Why didn't you hand in your homework this morning? Sorry, Miss Lu. My dog ate it up. What? Again? Yeah. When I took out my homework, my dog ran and ate it up. Maybe you need to finish your homework at school every day. Alright, Miss Lu. What do we know from their talk?",
+        "speak": "Why didn't you hand in your homework this morning? Sorry, Miss Lu. My dog ate it up. What? Again? Yeah. When I took out my homework, my dog ran and ate it up. Maybe you need to finish your homework at school every day. Alright, Miss Lu. What do we know from their talk?"
+      },
+      {
+        "id": "R2-3-D02",
+        "text": "Two Jason, where did you go last Saturday? My family and I went camping on the beach. Wow, you had a lot of fun there, didn't you? Sure. We went surfing in the morning and later went sailing. Oh, we also watched the sunset on the beach. The wind, the warm water and the family. How wonderful! Then what did you do at night? We sat in a circle, chatted, and laughed. What do we know about the man?",
+        "speak": "Two Jason, where did you go last Saturday? My family and I went camping on the beach. Wow, you had a lot of fun there, didn't you? Sure. We went surfing in the morning and later went sailing. Oh, we also watched the sunset on the beach. The wind, the warm water and the family. How wonderful! Then what did you do at night? We sat in a circle, chatted, and laughed. What do we know about the man?"
+      },
+      {
+        "id": "R2-3-D03",
+        "text": "What kind of job did you do before you became a reporter? I worked as a waitress from age 18 to 20. I learned a lot at the restaurant. What else did you do? After working at a restaurant, I took a working holiday in Japan for one year. I was a fruit farm worker there. Later, I came back to Taiwan. Now I love my job as a reporter. I like to share my story with the readers. Do you want to do anything else? Maybe a tour guide in five years. I love visiting different countries and working at the same time. What do we know about the woman?",
+        "speak": "What kind of job did you do before you became a reporter? I worked as a waitress from age 18 to 20. I learned a lot at the restaurant. What else did you do? After working at a restaurant, I took a working holiday in Japan for one year. I was a fruit farm worker there. Later, I came back to Taiwan. Now I love my job as a reporter. I like to share my story with the readers. Do you want to do anything else? Maybe a tour guide in five years. I love visiting different countries and working at the same time. What do we know about the woman?"
+      },
+      {
+        "id": "R2-3-D04",
+        "text": "What do we know about the woman? What do you usually do with your cell phone? I listen to music, watch movies, and sometimes play games. Is that all? But I often see you type words fast on it. Oh, you're right! I type some messages to my friends from different countries. They usually say hello to me and share something fun with me. Cool! I'm surprised. You have friends around the world. You bet! You can do it on the cell phone, too!",
+        "speak": "What do we know about the woman? What do you usually do with your cell phone? I listen to music, watch movies, and sometimes play games. Is that all? But I often see you type words fast on it. Oh, you're right! I type some messages to my friends from different countries. They usually say hello to me and share something fun with me. Cool! I'm surprised. You have friends around the world. You bet! You can do it on the cell phone, too!"
+      },
+      {
+        "id": "R2-3-D05",
+        "text": "Why is the boy surprised? Yesterday was the Lion King's birthday. Many animals came and gave him a gift. He was happy, and he invited them to a game. I put a golden pin somewhere in the forest. Find it and you can take it home,\" the king said. The animals tried, but soon gave up. The pin is small, the forest is big, no one can find it,\" said the animals. Only Sandy the spider kept looking for it. Finally she found the pin and took it home with joy. What do we know about the pin?",
+        "speak": "Why is the boy surprised? Yesterday was the Lion King's birthday. Many animals came and gave him a gift. He was happy, and he invited them to a game. I put a golden pin somewhere in the forest. Find it and you can take it home,\" the king said. The animals tried, but soon gave up. The pin is small, the forest is big, no one can find it,\" said the animals. Only Sandy the spider kept looking for it. Finally she found the pin and took it home with joy. What do we know about the pin?"
+      }
+    ]
+  },
+  "R3-1": {
+    "id": "R3-1",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 3,
+    "section": 1,
+    "title": "Review 3｜辨識句意",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R3-1-01",
+        "text": "The man finished the work by himself.",
+        "speak": "The man finished the work by himself."
+      },
+      {
+        "id": "R3-1-02",
+        "text": "A typhoon is coming.",
+        "speak": "A typhoon is coming."
+      },
+      {
+        "id": "R3-1-03",
+        "text": "Fruit in the market is cheap.",
+        "speak": "Fruit in the market is cheap."
+      },
+      {
+        "id": "R3-1-04",
+        "text": "The temple is big and beautiful.",
+        "speak": "The temple is big and beautiful."
+      },
+      {
+        "id": "R3-1-05",
+        "text": "Let's meet at the train station.",
+        "speak": "Let's meet at the train station."
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R3-2": {
+    "id": "R3-2",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 3,
+    "section": 2,
+    "title": "Review 3｜基本問答",
+    "hasDialogueMode": false,
+    "segments": [
+      {
+        "id": "R3-2-01",
+        "text": "What's your favorite place in Taiwan so far?",
+        "speak": "What's your favorite place in Taiwan so far?"
+      },
+      {
+        "id": "R3-2-02",
+        "text": "Excuse me, how much are the shoes?",
+        "speak": "Excuse me, how much are the shoes?"
+      },
+      {
+        "id": "R3-2-03",
+        "text": "What is your plan for tomorrow?",
+        "speak": "What is your plan for tomorrow?"
+      },
+      {
+        "id": "R3-2-04",
+        "text": "How long does it take to go from Taipei to Taoyuan by bus?",
+        "speak": "How long does it take to go from Taipei to Taoyuan by bus?"
+      },
+      {
+        "id": "R3-2-05",
+        "text": "Taiwan is a beautiful island.",
+        "speak": "Taiwan is a beautiful island."
+      }
+    ],
+    "dialogueSegments": []
+  },
+  "R3-3": {
+    "id": "R3-3",
+    "group": "review",
+    "sortGroup": 1,
+    "sortUnit": 3,
+    "section": 3,
+    "title": "Review 3｜言談理解",
+    "hasDialogueMode": true,
+    "segments": [
+      {
+        "id": "R3-3-01",
+        "text": "Penny and I are going to the library.",
+        "speak": "Penny and I are going to the library."
+      },
+      {
+        "id": "R3-3-02",
+        "text": "Are you going to join us?",
+        "speak": "Are you going to join us?"
+      },
+      {
+        "id": "R3-3-03",
+        "text": "No thanks.",
+        "speak": "No thanks."
+      },
+      {
+        "id": "R3-3-04",
+        "text": "Come on, aren't you doing an art report?",
+        "speak": "Come on, aren't you doing an art report?"
+      },
+      {
+        "id": "R3-3-05",
+        "text": "Hmm, maybe next time.",
+        "speak": "Hmm, maybe next time."
+      },
+      {
+        "id": "R3-3-06",
+        "text": "What do we know about the boy?",
+        "speak": "What do we know about the boy?"
+      },
+      {
+        "id": "R3-3-07",
+        "text": "Hey Joe, are you alright?",
+        "speak": "Hey Joe, are you alright?"
+      },
+      {
+        "id": "R3-3-08",
+        "text": "Not at all.",
+        "speak": "Not at all."
+      },
+      {
+        "id": "R3-3-09",
+        "text": "Being sick is terrible.",
+        "speak": "Being sick is terrible."
+      },
+      {
+        "id": "R3-3-10",
+        "text": "Did you go to the doctor?",
+        "speak": "Did you go to the doctor?"
+      },
+      {
+        "id": "R3-3-11",
+        "text": "Yes, and I need some water and sleep.",
+        "speak": "Yes, and I need some water and sleep."
+      },
+      {
+        "id": "R3-3-12",
+        "text": "Sleep.",
+        "speak": "Sleep."
+      },
+      {
+        "id": "R3-3-13",
+        "text": "What do we know about Joe?",
+        "speak": "What do we know about Joe?"
+      },
+      {
+        "id": "R3-3-14",
+        "text": "Hi, Jay.",
+        "speak": "Hi, Jay."
+      },
+      {
+        "id": "R3-3-15",
+        "text": "How's Tinan?",
+        "speak": "How's Tinan?"
+      },
+      {
+        "id": "R3-3-16",
+        "text": "Hello, Lily.",
+        "speak": "Hello, Lily."
+      },
+      {
+        "id": "R3-3-17",
+        "text": "It's a beautiful city.",
+        "speak": "It's a beautiful city."
+      },
+      {
+        "id": "R3-3-18",
+        "text": "What's your plan later?",
+        "speak": "What's your plan later?"
+      },
+      {
+        "id": "R3-3-19",
+        "text": "I'm going to visit the night market to enjoy food.",
+        "speak": "I'm going to visit the night market to enjoy food."
+      },
+      {
+        "id": "R3-3-20",
+        "text": "Awesome.",
+        "speak": "Awesome."
+      },
+      {
+        "id": "R3-3-21",
+        "text": "Have fun.",
+        "speak": "Have fun."
+      },
+      {
+        "id": "R3-3-22",
+        "text": "What are they talking about?",
+        "speak": "What are they talking about?"
+      },
+      {
+        "id": "R3-3-23",
+        "text": "What kind of party do you want for your birthday?",
+        "speak": "What kind of party do you want for your birthday?"
+      },
+      {
+        "id": "R3-3-24",
+        "text": "She's in the music room.",
+        "speak": "She's in the music room."
+      },
+      {
+        "id": "R3-3-25",
+        "text": "Is she with her friends?",
+        "speak": "Is she with her friends?"
+      },
+      {
+        "id": "R3-3-26",
+        "text": "No.",
+        "speak": "No."
+      },
+      {
+        "id": "R3-3-27",
+        "text": "She's playing the piano herself.",
+        "speak": "She's playing the piano herself."
+      },
+      {
+        "id": "R3-3-28",
+        "text": "What do we know about Amy?",
+        "speak": "What do we know about Amy?"
+      },
+      {
+        "id": "R3-3-29",
+        "text": "That's all for today.",
+        "speak": "That's all for today."
+      },
+      {
+        "id": "R3-3-30",
+        "text": "Any questions?",
+        "speak": "Any questions?"
+      },
+      {
+        "id": "R3-3-31",
+        "text": "When it comes to Italy, people think of pizza.",
+        "speak": "When it comes to Italy, people think of pizza."
+      },
+      {
+        "id": "R3-3-32",
+        "text": "How about Taiwan?",
+        "speak": "How about Taiwan?"
+      },
+      {
+        "id": "R3-3-33",
+        "text": "Bubble tea, of course.",
+        "speak": "Bubble tea, of course."
+      },
+      {
+        "id": "R3-3-34",
+        "text": "What else draws visitors to Taiwan?",
+        "speak": "What else draws visitors to Taiwan?"
+      },
+      {
+        "id": "R3-3-35",
+        "text": "Traveling here is safe and convenient.",
+        "speak": "Traveling here is safe and convenient."
+      },
+      {
+        "id": "R3-3-36",
+        "text": "What are they talking about?",
+        "speak": "What are they talking about?"
+      }
+    ],
+    "dialogueSegments": [
+      {
+        "id": "R3-3-D01",
+        "text": "Penny and I are going to the library. Are you going to join us? No thanks. Come on, aren't you doing an art report? Hmm, maybe next time. What do we know about the boy?",
+        "speak": "Penny and I are going to the library. Are you going to join us? No thanks. Come on, aren't you doing an art report? Hmm, maybe next time. What do we know about the boy?"
+      },
+      {
+        "id": "R3-3-D02",
+        "text": "Hey Joe, are you alright? Not at all. Being sick is terrible. Did you go to the doctor? Yes, and I need some water and sleep. Sleep. What do we know about Joe?",
+        "speak": "Hey Joe, are you alright? Not at all. Being sick is terrible. Did you go to the doctor? Yes, and I need some water and sleep. Sleep. What do we know about Joe?"
+      },
+      {
+        "id": "R3-3-D03",
+        "text": "Hi, Jay. How's Tinan? Hello, Lily. It's a beautiful city. What's your plan later? I'm going to visit the night market to enjoy food. Awesome. Have fun. What are they talking about?",
+        "speak": "Hi, Jay. How's Tinan? Hello, Lily. It's a beautiful city. What's your plan later? I'm going to visit the night market to enjoy food. Awesome. Have fun. What are they talking about?"
+      },
+      {
+        "id": "R3-3-D04",
+        "text": "What kind of party do you want for your birthday? She's in the music room. Is she with her friends? No. She's playing the piano herself. What do we know about Amy?",
+        "speak": "What kind of party do you want for your birthday? She's in the music room. Is she with her friends? No. She's playing the piano herself. What do we know about Amy?"
+      },
+      {
+        "id": "R3-3-D05",
+        "text": "That's all for today. Any questions? When it comes to Italy, people think of pizza. How about Taiwan? Bubble tea, of course. What else draws visitors to Taiwan? Traveling here is safe and convenient. What are they talking about?",
+        "speak": "That's all for today. Any questions? When it comes to Italy, people think of pizza. How about Taiwan? Bubble tea, of course. What else draws visitors to Taiwan? Traveling here is safe and convenient. What are they talking about?"
       }
     ]
   }
