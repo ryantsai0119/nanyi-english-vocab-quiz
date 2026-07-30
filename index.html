@@ -363,6 +363,27 @@
         @media (min-width: 640px) {
             #dictation-screen.card { padding: 2.25rem; }
         }
+        .mcq-opt {
+            display: flex; align-items: flex-start; gap: 0.65rem; width: 100%;
+            text-align: left; padding: 0.75rem 0.9rem; margin-bottom: 0.55rem;
+            border: 2px solid #e7c4a4; border-radius: 0.75rem; background: #fffaf4;
+            color: #1f140e; font-weight: 600; cursor: pointer;
+        }
+        .mcq-opt:hover:not(:disabled) { border-color: #e11d2e; background: #fff5eb; }
+        .mcq-opt:disabled { cursor: default; opacity: 1; }
+        .mcq-opt.is-correct { border-color: #15803d; background: #ecfdf5; }
+        .mcq-opt.is-wrong { border-color: #dc2626; background: #fef2f2; }
+        .mcq-opt-letter {
+            flex-shrink: 0; width: 1.6rem; height: 1.6rem; border-radius: 999px;
+            background: #ffe8d6; color: #9f1239; font-weight: 800;
+            display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem;
+        }
+        .mcq-opt.is-correct .mcq-opt-letter { background: #bbf7d0; color: #166534; }
+        .mcq-opt.is-wrong .mcq-opt-letter { background: #fecaca; color: #991b1b; }
+        .mcq-opt-text { flex: 1; min-width: 0; white-space: pre-wrap; line-height: 1.4; }
+        .mcq-feedback { margin-top: 0.75rem; padding: 0.75rem 0.9rem; border-radius: 0.75rem; font-size: 0.9rem; line-height: 1.45; }
+        .mcq-feedback-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
+        .mcq-feedback-bad { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
     </style>
 </head>
 <body class="min-h-screen p-3 sm:p-6">
@@ -409,7 +430,9 @@
                         <button onclick="startGame('en-zh')" class="btn btn-primary">英翻中</button>
                         <button type="button" onclick="Dictation.openPicker()" class="btn btn-primary">聽寫練習</button>
                         <button onclick="startGame('listening')" class="btn btn-primary">聽力測驗</button>
+                        <button type="button" onclick="Mcq.start()" class="btn btn-primary col-span-2">課程選擇題</button>
                     </div>
+                    <p class="text-stone-500 text-xs text-center mt-2">課程選擇題：各課題庫隨機抽題，選完顯示解析再計分</p>
                 </div>
             </div>
 
@@ -462,6 +485,24 @@
             </div>
             <div id="custom-keyboard" class="mt-6 hidden"></div>
             <button type="button" onclick="restartQuiz()" class="btn btn-secondary w-full mt-4">回首頁</button>
+        </div>
+
+        <!-- 課程選擇題 -->
+        <div id="mcq-screen" class="card hidden text-left">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-black text-stone-900">課程選擇題</h2>
+                <div class="badge">
+                    <span id="mcq-current">1</span> / <span id="mcq-total">10</span>
+                </div>
+            </div>
+            <p id="mcq-type" class="text-xs font-bold text-red-700 mb-2">文法</p>
+            <div class="panel mb-4">
+                <p id="mcq-stem" class="text-base font-semibold text-stone-900 whitespace-pre-wrap">題幹</p>
+            </div>
+            <div id="mcq-options"></div>
+            <div id="mcq-feedback" class="mcq-feedback hidden"></div>
+            <button type="button" id="mcq-next-btn" onclick="Mcq.next()" class="btn btn-primary w-full mt-4 hidden">下一題</button>
+            <button type="button" onclick="Mcq.backHome()" class="btn btn-secondary w-full mt-3">回首頁</button>
         </div>
 
         <!-- 結果畫面 -->
@@ -591,6 +632,8 @@
     <script src="grammar-data.js?v=20260719f"></script>
     <script src="reading-data.js?v=20260719f"></script>
     <script src="learn.js?v=20260719f"></script>
+    <script src="mcq-data.js?v=20260730a"></script>
+    <script src="mcq.js?v=20260730a"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
@@ -1041,6 +1084,8 @@
             if (window.speechSynthesis) window.speechSynthesis.cancel();
             resultsScreen.classList.add('hidden');
             quizScreen.classList.add('hidden');
+            const mcqEl = document.getElementById('mcq-screen');
+            if (mcqEl) mcqEl.classList.add('hidden');
             settingsScreen.classList.remove('hidden');
         }
 
@@ -1065,6 +1110,18 @@
                 }
                 if (e.key === '.' || e.key === "'") { e.preventDefault(); Dictation.handleKey(e.key); return; }
                 if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) { e.preventDefault(); Dictation.handleKey(e.key); }
+                return;
+            }
+            if (typeof Mcq !== 'undefined' && Mcq.isActive()) {
+                if (e.key === 'Escape') { Mcq.backHome(); return; }
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const nb = document.getElementById('mcq-next-btn');
+                    if (nb && !nb.classList.contains('hidden')) Mcq.next();
+                    return;
+                }
+                if (e.key >= '1' && e.key <= '4') { e.preventDefault(); Mcq.pick(parseInt(e.key, 10) - 1); return; }
+                if (/^[a-dA-D]$/.test(e.key)) { e.preventDefault(); Mcq.pick(e.key.toLowerCase().charCodeAt(0) - 97); return; }
                 return;
             }
             if (quizScreen.classList.contains('hidden')) return;
