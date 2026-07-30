@@ -430,9 +430,9 @@
                         <button onclick="startGame('en-zh')" class="btn btn-primary">英翻中</button>
                         <button type="button" onclick="Dictation.openPicker()" class="btn btn-primary">聽寫練習</button>
                         <button onclick="startGame('listening')" class="btn btn-primary">聽力測驗</button>
-                        <button type="button" onclick="Mcq.start()" class="btn btn-primary col-span-2">課程選擇題</button>
+                        <button type="button" onclick="Mcq.start()" class="btn btn-primary col-span-2">文法選擇題</button>
                     </div>
-                    <p class="text-stone-500 text-xs text-center mt-2">課程選擇題：各課題庫隨機抽題，選完顯示解析再計分</p>
+                    <p class="text-stone-500 text-xs text-center mt-2">文法選擇題：各課文法題庫隨機抽題（非考單字），選完顯示解析再計分</p>
                 </div>
             </div>
 
@@ -490,7 +490,7 @@
         <!-- 課程選擇題 -->
         <div id="mcq-screen" class="card hidden text-left">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-black text-stone-900">課程選擇題</h2>
+                <h2 class="text-xl font-black text-stone-900">文法選擇題</h2>
                 <div class="badge">
                     <span id="mcq-current">1</span> / <span id="mcq-total">10</span>
                 </div>
@@ -632,8 +632,8 @@
     <script src="grammar-data.js?v=20260719f"></script>
     <script src="reading-data.js?v=20260719f"></script>
     <script src="learn.js?v=20260719f"></script>
-    <script src="mcq-data.js?v=20260730a"></script>
-    <script src="mcq.js?v=20260730a"></script>
+    <script src="mcq-data.js?v=20260730b"></script>
+    <script src="mcq.js?v=20260730b"></script>
     <script>
         let currentQuiz = [], currentQuestionIndex = 0, userAnswers = [], quizType = '', currentAnswerString = '';
         let voices = [];
