@@ -5,396 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
-    <title>南一版 國中二上 英文單字測驗</title>
+    <title>南一 · 國中二上英文</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --brick: #c88242;
-            --mortar: #3a2416;
-            --accent-red: #e11d2e;
-            --ink: #1f140e;
-            --paper: #fff8f1;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        html {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
-        }
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            color: var(--ink);
-            background-color: var(--brick);
-            background-image:
-                linear-gradient(rgba(30, 16, 8, 0.18), rgba(30, 16, 8, 0.28)),
-                repeating-linear-gradient(0deg, #b56f35 0px, #b56f35 22px, var(--mortar) 22px, var(--mortar) 26px),
-                repeating-linear-gradient(90deg, #c88242 0px, #c88242 54px, var(--mortar) 54px, var(--mortar) 58px);
-            background-blend-mode: multiply, normal, normal;
-            min-height: 100vh;
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-            overflow-x: hidden;
-        }
-        #app {
-            width: 100% !important;
-            max-width: 28rem !important;
-            min-width: 0 !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-        .card {
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            overflow-x: hidden;
-        }
-        .title-hero {
-            font-family: 'Bebas Neue', 'Oswald', sans-serif;
-            letter-spacing: 0.04em;
-            line-height: 1.05;
-            background: linear-gradient(180deg, #ffd27a 0%, #ff8a1f 45%, #e11d2e 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            -webkit-text-stroke: 1.2px #fff;
-            paint-order: stroke fill;
-            filter: drop-shadow(0 2px 0 rgba(255,255,255,0.9));
-        }
-        .card {
-            position: relative;
-            background-color: var(--paper);
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            border: 3px solid #fff;
-            box-shadow: 0 18px 30px rgba(40, 18, 8, 0.35), inset 0 0 0 2px rgba(225, 29, 46, 0.15);
-        }
-        @media (min-width: 640px) { .card { padding: 2.25rem; } }
-        .btn {
-            display: inline-block;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            border: 2px solid transparent;
-            padding: 0.75rem 1.25rem;
-            font-size: 1rem;
-            border-radius: 0.85rem;
-            transition: all 0.2s ease-in-out;
-            user-select: none;
-        }
-        .btn-primary {
-            color: #fff;
-            background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
-            border-color: #fff;
-            box-shadow: 0 4px 0 #7f0b14;
-        }
-        .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
-        .btn-primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #7f0b14; }
-        .btn-secondary {
-            color: #c8101e;
-            background-color: #ffe8d6;
-            border-color: #f4b183;
-        }
-        .btn-secondary:hover { background-color: #ffd7b8; }
-        .btn-mini {
-            padding: 0.35rem 0.7rem;
-            font-size: 0.8rem;
-            border-radius: 0.55rem;
-            font-weight: 700;
-            border: 1px solid #f4b183;
-            background: #fff;
-            color: #c8101e;
-            cursor: pointer;
-        }
-        .btn-mini:hover { background: #ffe8d6; }
-        .btn-speak {
-            width: 2rem; height: 2rem; border-radius: 9999px;
-            display: inline-flex; align-items: center; justify-content: center;
-            background: #ffe4ea; color: #c8101e; border: none; cursor: pointer;
-            flex-shrink: 0;
-        }
-        .btn-speak:hover { background: #ffc9d4; }
-        .input-field {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border-radius: 0.75rem;
-            border: 2px solid #e7c4a4;
-            background: #fff;
-        }
-        .input-field:focus {
-            outline: none;
-            border-color: #e11d2e;
-            box-shadow: 0 0 0 3px rgba(225, 29, 46, 0.2);
-        }
-        .hidden { display: none !important; }
-        #answer-display-container { min-height: 50px; }
-        #answer-display-text { letter-spacing: 2px; }
-        #cursor { color: #e11d2e; font-weight: 200; }
-        .keyboard-row { display: flex; width: 100%; justify-content: center; gap: 4px; margin-bottom: 6px; }
-        .keyboard-key {
-            background-color: #fff7ef; border: 1px solid #e7c4a4; border-radius: 6px; padding: 14px 0;
-            font-size: 0.9rem; font-weight: 600; cursor: pointer; height: 48px; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 2px 2px -1px rgba(0,0,0,0.05);
-            flex: 1; min-width: 0;
-        }
-        .keyboard-key:active { background-color: #e11d2e; color: white; transform: translateY(1px); }
-        .special-key { background-color: #f0d5bc; }
-        .flex-2 { flex: 2; }
-        .flex-4 { flex: 4; }
-        #speak-btn {
-            background-color: #ffe4ea; color: #c8101e; border-radius: 9999px; width: 48px; height: 48px;
-            display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
-        }
-        #speak-btn:hover { background-color: #ffc9d4; }
-        .checkbox-label {
-            display: flex; align-items: center; padding: 0.75rem; background-color: #fff;
-            border-radius: 0.75rem; border: 1px solid #e7c4a4; cursor: pointer;
-        }
-        .checkbox-label:hover { border-color: #e11d2e; }
-        .checkbox-label input:checked ~ .checkbox-icon { background-color: #e11d2e; border-color: #e11d2e; }
-        .checkbox-label input:checked ~ .checkbox-icon svg { display: block; }
-        .checkbox-icon {
-            width: 1.5rem; height: 1.5rem; border-radius: 0.5rem; border: 2px solid #d1d5db;
-            display: flex; align-items: center; justify-content: center; margin-right: 0.75rem; flex-shrink: 0;
-        }
-        .badge {
-            display: inline-flex; align-items: center;
-            background: #ffe4ea; color: #c8101e; font-weight: 700;
-            border-radius: 9999px; padding: 0.35rem 0.9rem;
-        }
-        .score-panel {
-            background: linear-gradient(180deg, #fff0e6 0%, #ffe4ea 100%);
-            border: 2px solid #fff; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem;
-        }
-        .link-accent { color: #c8101e; }
-        .link-accent:hover { text-decoration: underline; }
-        .panel { background: #fff7ef; border-radius: 0.85rem; padding: 1.25rem; border: 1px solid #e7c4a4; }
-        .vocab-row {
-            display: grid;
-            grid-template-columns: 1.6rem 1fr auto auto;
-            gap: 0.5rem;
-            align-items: center;
-            padding: 0.65rem 0.5rem;
-            border-bottom: 1px solid #f0d5bc;
-        }
-        .vocab-row.memorized { background: #f3fce9; }
-        .vocab-en { font-weight: 700; color: #1f140e; }
-        .vocab-zh { font-size: 0.9rem; color: #5a4638; }
-        .vocab-ph { font-size: 0.75rem; color: #8a6b55; }
-        .modal-backdrop {
-            position: fixed; inset: 0; background: rgba(20,10,5,0.55);
-            display: flex; align-items: center; justify-content: center;
-            padding: 1rem; z-index: 50;
-        }
-        .modal-card {
-            width: 100%; max-width: 26rem; background: var(--paper);
-            border-radius: 1rem; border: 3px solid #fff; padding: 1.25rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
-        }
-        .result-ok { color: #15803d; font-weight: 800; }
-        .result-bad { color: #b91c1c; font-weight: 800; }
-        .tab-btn {
-            flex: 1; padding: 0.55rem 0.25rem; font-weight: 700; border-radius: 0.7rem;
-            border: 2px solid #e7c4a4; background: #fff; color: #5a4638; cursor: pointer;
-            font-size: 0.82rem; line-height: 1.2;
-        }
-        .tab-btn.active {
-            background: linear-gradient(180deg, #ff4d57 0%, #c8101e 100%);
-            color: #fff; border-color: #fff;
-        }
-        .learn-sub-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.85rem; }
-        .learn-sub-tabs .tab-btn { font-size: 0.9rem; padding: 0.55rem; }
-        .learn-board {
-            background: #2b211c; color: #f5e6d3; border-radius: 0.85rem;
-            padding: 0.9rem 1rem; border: 2px solid #5a4638;
-        }
-        .learn-board-title {
-            font-family: 'Oswald', sans-serif; font-size: 1.05rem; color: #ffd27a;
-            margin: 0 0 0.55rem; letter-spacing: 0.02em;
-        }
-        .learn-oneliner { font-size: 0.92rem; line-height: 1.45; margin: 0; }
-        .learn-oneliner span { color: #ff8a1f; font-weight: 700; }
-        .learn-fold {
-            background: #fff; border: 2px solid #e7c4a4; border-radius: 0.75rem;
-            margin-bottom: 0.55rem; overflow: hidden;
-        }
-        .learn-fold > summary {
-            cursor: pointer; font-weight: 800; color: #3a2416; padding: 0.7rem 0.85rem;
-            list-style: none; background: #fff4e8;
-        }
-        .learn-fold > summary::-webkit-details-marker { display: none; }
-        .learn-fold[open] > summary { border-bottom: 1px solid #e7c4a4; }
-        .learn-fold-body { padding: 0.75rem 0.85rem 0.9rem; font-size: 0.92rem; }
-        .learn-paras p { margin: 0 0 0.55rem; color: #3a2416; line-height: 1.55; }
-        .learn-list { margin: 0; padding-left: 1.1rem; color: #3a2416; }
-        .learn-list li { margin-bottom: 0.35rem; line-height: 1.45; }
-        .learn-ex {
-            background: #fffaf4; border: 1px solid #efd2b6; border-radius: 0.6rem;
-            padding: 0.55rem 0.65rem;
-        }
-        .learn-trap {
-            background: #fff; border: 1px solid #efd2b6; border-radius: 0.6rem;
-            padding: 0.55rem 0.7rem; margin-bottom: 0.5rem;
-        }
-        .trap-bad { color: #b91c1c; font-weight: 700; margin: 0 0 0.25rem; }
-        .trap-ok { color: #15803d; font-weight: 700; margin: 0; }
-        .learn-quiz {
-            border: 1px dashed #e7c4a4; border-radius: 0.65rem;
-            padding: 0.7rem; margin-bottom: 0.65rem; background: #fffaf4;
-        }
-        .learn-quiz-opt {
-            display: block; width: 100%; text-align: left; margin-top: 0.4rem;
-            padding: 0.55rem 0.7rem; border-radius: 0.55rem; border: 1px solid #e7c4a4;
-            background: #fff; font-size: 0.88rem; cursor: pointer; color: #3a2416;
-        }
-        .learn-quiz-opt:hover:not(:disabled) { border-color: #e11d2e; }
-        .learn-quiz-opt.correct { background: #dcfce7; border-color: #15803d; color: #166534; }
-        .learn-quiz-opt.wrong { background: #fee2e2; border-color: #b91c1c; color: #991b1b; }
-        .learn-sec-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-        .learn-sec-chip {
-            padding: 0.35rem 0.6rem; font-size: 0.78rem; font-weight: 700;
-            border-radius: 999px; border: 1px solid #e7c4a4; background: #fff; color: #5a4638; cursor: pointer;
-        }
-        .learn-sec-chip.active {
-            background: #c8101e; color: #fff; border-color: #fff;
-        }
-        .learn-line {
-            background: #fff; border: 1px solid #efd2b6; border-radius: 0.7rem;
-            padding: 0.65rem 0.7rem;
-        }
-        .learn-line-no {
-            font-family: 'Oswald', sans-serif; color: #c8101e; font-weight: 700;
-            min-width: 1.25rem;
-        }
-        .learn-line-en { font-weight: 800; color: #1f140e; line-height: 1.4; margin: 0; }
-        .learn-line-zh { font-size: 0.88rem; color: #78716c; margin: 0.25rem 0 0; line-height: 1.4; }
-        .btn-speak { font-size: 0.72rem; font-weight: 800; }
-
-        /* 聽寫練習 */
-        .dict-section-grid {
-            display: grid !important;
-            grid-template-columns: 1fr !important;
-            gap: 0.55rem;
-            width: 100%;
-        }
-        @media (min-width: 768px) {
-            .dict-section-grid { grid-template-columns: 1fr 1fr 1fr !important; }
-        }
-        .dict-cell {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center;
-            gap: 0.65rem;
-            text-align: left;
-            padding: 0.8rem 0.85rem;
-            border-radius: 0.85rem;
-            background: #fff;
-            border: 2px solid #e7c4a4;
-            cursor: pointer;
-            transition: transform 0.15s, border-color 0.15s;
-            min-width: 0;
-            width: 100%;
-        }
-        @media (min-width: 768px) {
-            .dict-cell { flex-direction: column !important; align-items: flex-start; }
-        }
-        .dict-cell:hover { border-color: #e11d2e; transform: translateY(-1px); }
-        .dict-cell-id {
-            font-family: 'Oswald', sans-serif; font-size: 1.35rem; color: #c8101e; font-weight: 700;
-            flex-shrink: 0; min-width: 2.75rem;
-        }
-        .dict-cell-body { min-width: 0; flex: 1; }
-        .dict-cell-sub {
-            font-size: 0.85rem; color: #57534e; line-height: 1.25;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .dict-cell-meta { font-size: 0.75rem; color: #a8a29e; margin-top: 0.15rem; }
-        #dict-slots {
-            display: flex; flex-wrap: wrap; align-items: flex-end;
-            justify-content: center; gap: 2px 0; line-height: 1.8;
-            min-height: 4.5rem; padding: 0.5rem 0.25rem;
-        }
-        .letter-slot {
-            display: inline-flex; width: 1.05rem; height: 1.55rem;
-            border-bottom: 2px solid #c88242; justify-content: center; align-items: flex-end;
-            margin: 0 1px 4px; font-weight: 700; font-size: 0.95rem; color: #1f140e;
-        }
-        .letter-slot.filled { color: #1f140e; }
-        .letter-slot.current { border-bottom-color: #e11d2e; box-shadow: 0 2px 0 #e11d2e; }
-        .letter-slot.correct { color: #15803d; border-bottom-color: #15803d; }
-        .letter-slot.wrong { color: #dc2626; border-bottom-color: #dc2626; }
-        button.letter-slot {
-            appearance: none; -webkit-appearance: none; border-top: none; border-left: none; border-right: none;
-            background: transparent; padding: 0; cursor: pointer; font: inherit;
-        }
-        button.letter-slot:active { background: rgba(225, 29, 46, 0.08); }
-        .keyboard-key.shift-on { background: #e11d2e; color: #fff; border-color: #fff; }
-        .word-gap { display: inline-block; width: 0.55rem; }
-        .punct-fixed { color: #a8a29e; font-weight: 600; margin: 0 1px 4px; align-self: flex-end; }
-        .dict-toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 0.75rem; }
-        .dict-result-row {
-            display: flex; justify-content: space-between; gap: 0.75rem;
-            padding: 0.55rem 0.75rem; background: #fff; border: 1px solid #e7c4a4;
-            border-radius: 0.65rem; font-size: 0.85rem;
-        }
-        #dict-keyboard .keyboard-key { height: 44px; }
-        .dict-prefs label { color: #44403c; font-size: 0.85rem; display: block; }
-        .dict-prefs select.input-field {
-            padding: 0.55rem 0.7rem; font-size: 0.95rem; width: 100%;
-            max-width: 100%; min-width: 0;
-        }
-        .dict-prefs-grid {
-            display: grid !important;
-            grid-template-columns: 1fr !important;
-            gap: 0.7rem;
-            width: 100%;
-        }
-        @media (min-width: 768px) {
-            .dict-prefs-grid { grid-template-columns: 1fr 1fr !important; }
-        }
-        #dictation-picker-screen.card { padding: 1rem; }
-        @media (min-width: 640px) {
-            #dictation-picker-screen.card { padding: 2.25rem; }
-        }
-        #dictation-screen.card { padding: 1rem; }
-        @media (min-width: 640px) {
-            #dictation-screen.card { padding: 2.25rem; }
-        }
-        .mcq-opt {
-            display: flex; align-items: flex-start; gap: 0.65rem; width: 100%;
-            text-align: left; padding: 0.75rem 0.9rem; margin-bottom: 0.55rem;
-            border: 2px solid #e7c4a4; border-radius: 0.75rem; background: #fffaf4;
-            color: #1f140e; font-weight: 600; cursor: pointer;
-        }
-        .mcq-opt:hover:not(:disabled) { border-color: #e11d2e; background: #fff5eb; }
-        .mcq-opt:disabled { cursor: default; opacity: 1; }
-        .mcq-opt.is-correct { border-color: #15803d; background: #ecfdf5; }
-        .mcq-opt.is-wrong { border-color: #dc2626; background: #fef2f2; }
-        .mcq-opt-letter {
-            flex-shrink: 0; width: 1.6rem; height: 1.6rem; border-radius: 999px;
-            background: #ffe8d6; color: #9f1239; font-weight: 800;
-            display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem;
-        }
-        .mcq-opt.is-correct .mcq-opt-letter { background: #bbf7d0; color: #166534; }
-        .mcq-opt.is-wrong .mcq-opt-letter { background: #fecaca; color: #991b1b; }
-        .mcq-opt-text { flex: 1; min-width: 0; white-space: pre-wrap; line-height: 1.4; }
-        .mcq-feedback { margin-top: 0.75rem; padding: 0.75rem 0.9rem; border-radius: 0.75rem; font-size: 0.9rem; line-height: 1.45; }
-        .mcq-feedback-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
-        .mcq-feedback-bad { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tokens.css?v=20260805a">
+    <link rel="stylesheet" href="styles.css?v=20260805a">
 </head>
 <body class="min-h-screen p-3 sm:p-6">
 
     <div id="app" class="w-full max-w-md mx-auto min-w-0">
 
         <!-- 設定畫面 -->
-        <div id="settings-screen" class="card text-center">
-            <h1 class="title-hero text-4xl sm:text-5xl mb-2">南一版 國中二上<br>英文單字測驗</h1>
-            <p class="text-stone-600 mb-1 text-sm">115 學年度｜八上第三冊 Lesson 1–6</p>
-            <p class="text-stone-500 text-xs mb-5">先背單字表，再開始測驗！</p>
+        <div id="settings-screen" class="card">
+            <header class="masthead">
+                <p class="masthead-meta">Nan-I · Book 3 · 115</p>
+                <h1 class="title-hero">南一 · 國中二上英文</h1>
+                <p class="masthead-lede">單字、文法、聽寫——先讀再練，一次一課。</p>
+            </header>
 
             <div class="flex gap-2 mb-5">
                 <button type="button" id="tab-quiz" class="tab-btn active" onclick="showHomeTab('quiz')">開始測驗</button>
@@ -404,7 +33,7 @@
 
             <div id="home-quiz" class="space-y-6 text-left">
                 <div>
-                    <label for="question-count" class="block text-base font-bold text-stone-800 mb-2 text-center">選擇題目數量</label>
+                    <div class="section-rule"><h2>題目數量</h2></div><label for="question-count" class="sr-only">選擇題目數量</label>
                     <select id="question-count" class="input-field text-center">
                         <option value="10">10 題</option>
                         <option value="20">20 題</option>
@@ -413,8 +42,8 @@
                     </select>
                 </div>
                 <div>
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-base font-bold text-stone-800">選擇出題範圍</h2>
+                    <div class="section-rule">
+                        <h2>出題範圍</h2>
                         <div class="space-x-2 text-sm">
                             <button type="button" onclick="selectAllLessons(true)" class="link-accent">全選</button>
                             <button type="button" onclick="selectAllLessons(false)" class="link-accent">全不選</button>
@@ -424,15 +53,33 @@
                     <p id="lesson-error" class="text-red-600 text-sm mt-2 text-center hidden">請至少選擇一個單元！</p>
                 </div>
                 <div>
-                    <h2 class="text-base font-bold text-stone-800 mb-3 text-center">選擇測驗模式</h2>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="startGame('zh-en')" class="btn btn-primary">中翻英</button>
-                        <button onclick="startGame('en-zh')" class="btn btn-primary">英翻中</button>
-                        <button type="button" onclick="Dictation.openPicker()" class="btn btn-primary">聽寫練習</button>
-                        <button onclick="startGame('listening')" class="btn btn-primary">聽力測驗</button>
-                        <button type="button" onclick="Mcq.start()" class="btn btn-primary col-span-2">文法選擇題</button>
+                    <div class="section-rule">
+                        <h2>測驗模式</h2>
+                        <span class="masthead-meta">5 modes</span>
                     </div>
-                    <p class="text-stone-500 text-xs text-center mt-2">文法選擇題：各課文法題庫隨機抽題（非考單字），選完顯示解析再計分</p>
+                    <div class="mode-catalogue" role="list">
+                        <button type="button" onclick="startGame('zh-en')" class="mode-tile" role="listitem">
+                            <span class="mode-tile-id">01</span>
+                            <span class="mode-tile-label">中翻英</span>
+                        </button>
+                        <button type="button" onclick="startGame('en-zh')" class="mode-tile" role="listitem">
+                            <span class="mode-tile-id">02</span>
+                            <span class="mode-tile-label">英翻中</span>
+                        </button>
+                        <button type="button" onclick="Dictation.openPicker()" class="mode-tile" role="listitem">
+                            <span class="mode-tile-id">03</span>
+                            <span class="mode-tile-label">聽寫練習</span>
+                        </button>
+                        <button type="button" onclick="startGame('listening')" class="mode-tile" role="listitem">
+                            <span class="mode-tile-id">04</span>
+                            <span class="mode-tile-label">聽力測驗</span>
+                        </button>
+                        <button type="button" onclick="Mcq.start()" class="mode-tile span-2" role="listitem">
+                            <span class="mode-tile-id">05 · Grammar</span>
+                            <span class="mode-tile-label">文法選擇題</span>
+                        </button>
+                    </div>
+                    <p class="text-stone-500 text-xs mt-3" style="text-align:left">文法選擇題：各課文法題庫隨機抽題（非考單字），選完顯示解析再計分</p>
                 </div>
             </div>
 
@@ -456,6 +103,8 @@
                 </div>
                 <div id="learn-body" class="max-h-[62vh] overflow-y-auto pr-0.5"></div>
             </div>
+
+            <p class="site-foot">Nan-I Book 3 · Lesson 1–6 · for quiet practice</p>
         </div>
 
         <!-- 測驗畫面 -->
@@ -507,7 +156,7 @@
 
         <!-- 結果畫面 -->
         <div id="results-screen" class="card hidden text-center">
-            <h1 class="title-hero text-4xl mb-2">測驗結束</h1>
+            <h1 class="title-hero" style="font-size:var(--text-3xl);margin-bottom:0.5rem">測驗結束</h1>
             <p class="text-stone-600 mb-6">看看你這次表現如何</p>
             <div class="score-panel">
                 <p class="text-lg text-red-800 font-bold">你的分數</p>
@@ -520,7 +169,7 @@
 
         <!-- 聽寫：選區段 -->
         <div id="dictation-picker-screen" class="card hidden text-left">
-            <h1 class="title-hero text-3xl sm:text-4xl mb-1 text-center">聽寫練習</h1>
+            <header class="masthead" style="margin-bottom:1rem"><p class="masthead-meta">Dictation</p><h1 class="title-hero" style="font-size:var(--text-3xl)">聽寫練習</h1></header>
             <p class="text-center text-xs text-stone-400 mb-1">版面 v2.4 · 可點格修正／大小寫</p>
             <p class="text-stone-600 text-sm mb-1 text-center">選課次／複習區段（如 1-1、R1-2）</p>
             <p class="text-stone-500 text-xs mb-3 text-center">循環聽句子 → 字母空格打字（標點與 ' 不用計分）→ 對答案</p>
@@ -593,7 +242,7 @@
 
         <!-- 聽寫：區段結果 -->
         <div id="dictation-results-screen" class="card hidden text-center">
-            <h1 class="title-hero text-4xl mb-2">區段完成</h1>
+            <h1 class="title-hero" style="font-size:var(--text-3xl);margin-bottom:0.5rem">區段完成</h1>
             <p id="dict-result-title" class="text-stone-600 mb-4">Lesson 1｜辨識句意</p>
             <div class="score-panel">
                 <p class="text-lg text-red-800 font-bold">平均完成度</p>

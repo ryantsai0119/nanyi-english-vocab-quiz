@@ -2,6 +2,8 @@
 
 互動式英文單字／聽寫練習網站（南一版 Book 3｜超群新幹線第三冊）。
 
+視覺：Hallmark **Atelier**（Catalogue 宏結構）——冷骨色紙面、Cormorant／Noto 襯線標題、單一酒紅強調色。樣式拆在 `tokens.css` + `styles.css`。
+
 ## 線上使用
 
 https://ryantsai0119.github.io/nanyi-english-vocab-quiz/
